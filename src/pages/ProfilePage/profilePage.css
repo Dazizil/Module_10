@@ -1,0 +1,41 @@
+.profile {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+}
+
+.profile__edit {
+    width: 575px;
+}
+
+.profile__content {
+    width: 575px;
+}
+
+.profile__preferences {
+    height: 130px;
+}
+
+.profile__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 130px;
+}
+
+.logout-button {
+    width: 144px;
+    height: 44px;
+}
+
+@media (max-width: 1200px) {
+    .profile__content {
+        width: 50%;
+    }
+
+    .profile__edit{
+        width: 50%;
+    }
+}

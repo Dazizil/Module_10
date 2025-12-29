@@ -1,0 +1,40 @@
+.burger-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 2000;
+}
+
+.burger-menu {
+    width: 288px;
+    height: 100%;
+    background: var(--main-background-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.burger-menu__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.burger__link {
+    height: 44px;
+    background-color: var(--secondly-background-color);
+    padding: 8px;
+    color: var(--secondly-font-color);
+    text-decoration: none;
+    font-family: Poppins, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+
+}
