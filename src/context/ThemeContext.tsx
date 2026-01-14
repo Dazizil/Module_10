@@ -1,14 +1,22 @@
-// src/context/ThemeContext.tsx
-import {createContext, useContext, useEffect, useState} from 'react';
+import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 
-const ThemeContext = createContext({
+type Theme = 'dark' | 'light';
+
+interface ThemeContextType {
+    theme: Theme,
+    toggleTheme: () => void,
+}
+
+const ThemeContext = createContext<ThemeContextType>({
     theme: 'dark',
-    toggleTheme: () => {},
+    toggleTheme: () => {
+    }
 });
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState(() => {
-        return localStorage.getItem('theme') || 'dark';
+export function ThemeProvider({children}: { children: ReactNode }) {
+    const [theme, setTheme] = useState<Theme>(() => {
+        const stored = localStorage.getItem('theme');
+        return stored === 'light' || stored === 'dark' ? stored : 'dark';
     });
 
     useEffect(() => {
@@ -16,12 +24,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         document.documentElement.className = theme;
     }, [theme]);
 
-    const toggleTheme = () => {
+    function toggleTheme() {
         setTheme(prev => prev === 'dark' ? 'light' : 'dark');
     };
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <ThemeContext.Provider value={{theme, toggleTheme}}>
             {children}
         </ThemeContext.Provider>
     );

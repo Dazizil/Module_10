@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import './modalWindow.css'
-import PencilIcon from "../../assets/fi-rr-pencil.svg";
-import PostIcon from '../../assets/Vector(7).svg'
-import CloseImage from '../../assets/Vector(8).svg'
+import PencilIcon from "../../assets/PencilIcon.svg";
+import PostIcon from '../../assets/PostIcon.svg'
+import CloseImage from '../../assets/CloseImage.svg'
 import DarkCloseImage from '../../assets/DarkCloseImage.svg'
-import FileIcon from '../../assets/Vector(9).svg'
+import FileIcon from '../../assets/FileIcon.svg'
 import {Post} from "../../mockData";
 import {useTheme} from "../../context/ThemeContext";
 import DarkFileIcon from '../../assets/DarkFileIcon.svg'
@@ -24,7 +24,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
     const {theme} = useTheme();
     if (!isOpen) return null;
 
-    const handleCreate = () => {
+    function handleCreate () {
         const newPost: Post = {
             id: '',
             author: 'me',
@@ -42,13 +42,13 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
         setTitle('');
         setDescription('');
         setFile(null);
-    };
+    }
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleFileChange (e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files[0]) {
             setFile(e.target.files[0]);
         }
-    };
+    }
 
     return (
         <div className={'modal-overlay'}>

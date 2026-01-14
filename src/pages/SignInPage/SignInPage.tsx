@@ -1,6 +1,6 @@
 import React from 'react';
-import EmailIcon from "../../assets/Vector(7).svg";
-import EyeIcon from "../../assets/fi-rr-eye.svg";
+import EmailIcon from "../../assets/PostIcon.svg";
+import EyeIcon from "../../assets/EyeIcon.svg";
 import {Link} from "react-router-dom";
 import './signInPage.css'
 import {useTheme} from "../../context/ThemeContext";

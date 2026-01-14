@@ -35,9 +35,9 @@ export const mockPosts: Post[] = [
         id: '1',
         author: 'Helena',
         username: 'helenahills',
-        authorAvatar: '../assets/48fb0979b0fbdd8e320622de39475b562ddad56d 20.54.03.png',
+        authorAvatar: '../assets/Helena.png',
         timestamp: '2025-12-10T14:30:00',
-        imageUrl: '../assets/image.jpg',
+        imageUrl: '../assets/Flowers.jpg',
         description: 'Lorem ipsum',
         likes: 21,
         comments: [
@@ -55,7 +55,7 @@ export const mockPosts: Post[] = [
         id: '2',
         author: 'Charles',
         username: 'charles',
-        authorAvatar: '../assets/c6d09f08fc67578e43e3a45f9a6a703015e0ab1c.jpg',
+        authorAvatar: '../assets/Dachshund.jpg',
         timestamp: '2025-12-12T09:15:00',
         imageUrl: '',
         description: 'Post description',
@@ -66,9 +66,9 @@ export const mockPosts: Post[] = [
         id: '3',
         author: 'Oskar',
         username: 'oscardavis',
-        authorAvatar: '../assets/873a411918e5f83ef56349627f7d99976bc2143e.jpg',
+        authorAvatar: '../assets/Oskar.jpg',
         timestamp: '2025-12-14T18:22:00',
-        imageUrl: '../assets/image1.jpg',
+        imageUrl: '../assets/Watches.jpg',
         description: 'Body text for a post. Since it’s a social app, sometimes it’s a hot take, and sometimes it’s a question.',
         likes: 58,
         comments: [],
@@ -77,7 +77,7 @@ export const mockPosts: Post[] = [
         id: '4',
         author: 'Daniel Jay Park',
         username: 'danielj',
-        authorAvatar: '../assets/cdcab709fd04dd096ffaf33b14d2ea81f7ef12f7.jpg',
+        authorAvatar: '../assets/DanielJayPark.jpg',
         timestamp: '2025-12-16T11:05:00',
         imageUrl: '',
         description: 'Body text for a post. Since it’s a social app, sometimes it’s an observation, and sometimes it’s seeking recommendations.',
@@ -97,7 +97,7 @@ export const mockPosts: Post[] = [
         id: '5',
         author: 'Mark Rojas',
         username: 'carlorojas',
-        authorAvatar: '../assets/178bddc8313c366f12a6c0998129db7e1f0bcc8f.jpg',
+        authorAvatar: '../assets/MarkRojas.jpg',
         timestamp: '2025-12-18T08:45:00',
         imageUrl: '',
         description: 'Body text for a post. Since it’s a social app, sometimes it’s sharing tips, and sometimes it’s freeloading.',
@@ -117,35 +117,35 @@ export const mockUsers: User[] = [
         name: 'Helena',
         lastname: 'Hills',
         username: 'helenahills',
-        avatar: '../assets/48fb0979b0fbdd8e320622de39475b562ddad56d 20.54.03.png',
+        avatar: '../assets/Helena.png',
     },
     {
         id: 'user-2',
         name: 'Charles',
         lastname: '',
         username: 'charles',
-        avatar: '../assets/c6d09f08fc67578e43e3a45f9a6a703015e0ab1c.jpg',
+        avatar: '../assets/Dachshund.jpg',
     },
     {
         id: 'user-3',
         name: 'Oskar',
         lastname: 'Davis',
         username: 'oscardavis',
-        avatar: '../assets/873a411918e5f83ef56349627f7d99976bc2143e.jpg',
+        avatar: '../assets/Oskar.jpg',
     },
     {
         id: 'user-4',
         name: 'Daniel Jay',
         lastname: 'Park',
         username: 'danielj',
-        avatar: '../assets/cdcab709fd04dd096ffaf33b14d2ea81f7ef12f7.jpg',
+        avatar: '../assets/DanielJayPark.jpg',
     },
     {
         id: 'user-5',
         name: 'Mark',
         lastname: 'Rojas',
         username: 'carlorojas',
-        avatar: '../assets/178bddc8313c366f12a6c0998129db7e1f0bcc8f.jpg',
+        avatar: '../assets/MarkRojas.jpg',
     },
 ];
 
@@ -160,12 +160,12 @@ export const mockCommunities: Community[] = [
         id: 'community-2',
         name: 'Photographers of SF',
         numberOfMembers: 2000,
-        avatar: '../assets/67563cb3566e279e4911a28244eb190346ccbc3c.jpg'
+        avatar: '../assets/StreetPicture2.jpg'
     },
     {
         id: 'community-3',
         name: 'Marina crew',
         numberOfMembers: 125,
-        avatar: '../assets/fca3b53b5281f42c270c0a39d60a3f66120b6dd6.jpg'
+        avatar: '../assets/StreetPicture.jpg'
     }
 ]

@@ -1,5 +1,5 @@
 import React from 'react';
-import CrossImage from '../../assets/Vector(6).svg'
+import CrossImage from '../../assets/CloseIcon.svg'
 import './errorPage.css'
 
 const ErrorPage = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './notFoundPage.css'
-import NotFoundImage from '../../assets/Vector(5).svg'
+import NotFoundImage from '../../assets/NotFoundImage.svg'
 import DarkNotFoundImage from '../../assets/DarkNotFoundImage.svg'
 import {useTheme} from "../../context/ThemeContext";
 

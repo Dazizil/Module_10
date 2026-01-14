@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './postForm.css'
-import ProfilePicture from '../../assets/956a3801a7d333c73be572f106a7f948da04390d.jpg'
+import ProfilePicture from '../../assets/SomeWomen.jpg'
 import ModalWindow from "../ModalWindow/ModalWindow";
 import {Post} from "../../mockData";
 

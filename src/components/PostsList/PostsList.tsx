@@ -5,7 +5,7 @@ import PostForm from "../PostForm/PostForm";
 import {useAuth} from "../../context/AuthContext";
 
 const PostsList = ({posts, onAddPost}: { posts: Post[], onAddPost?: (post: Post) => void }) => {
-    const {isAuthenticated} = useAuth()
+    const {isAuthenticated} = useAuth();
     return (
         <div>
             {isAuthenticated && onAddPost && (

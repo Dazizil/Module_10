@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './signUpPage.css'
 import {Link, useNavigate} from "react-router-dom";
-import EmailIcon from '../../assets/Vector(7).svg'
-import EyeIcon from '../../assets/fi-rr-eye.svg'
+import EmailIcon from '../../assets/PostIcon.svg'
+import EyeIcon from '../../assets/EyeIcon.svg'
 import DarkEmailIcon from '../../assets/DarkPostIcon.svg'
 import DarkEyeIcon from '../../assets/DarkEyeIcon.svg'
 import {useAuth} from "../../context/AuthContext";

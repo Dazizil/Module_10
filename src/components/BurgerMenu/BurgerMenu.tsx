@@ -1,4 +1,3 @@
-// BurgerMenu.tsx
 import React from 'react';
 import './burgerMenu.css';
 import {Link} from "react-router-dom";
@@ -9,8 +8,8 @@ interface BurgerMenuProps {
     onClose: () => void;
 }
 
-const BurgerMenu: React.FC<BurgerMenuProps> = ({isOpen, onClose}) => {
-    const {isAuthenticated} = useAuth()
+const BurgerMenu = ({isOpen, onClose}: BurgerMenuProps) => {
+    const {isAuthenticated} = useAuth();
     if (!isOpen) return null;
 
     return (

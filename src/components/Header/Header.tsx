@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import './header.css'
-import DarkLogo from '../../assets/logo.svg'
-import LightLogo from '../../assets/logo(1).svg'
+import DarkLogo from '../../assets/SidekickLogo.svg'
+import LightLogo from '../../assets/DarkSidekickLogo.svg'
 import {Link, useLocation} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext";
-import ProfilePicture from '../../assets/956a3801a7d333c73be572f106a7f948da04390d.jpg'
-import BurgerMenuIcon from '../../assets/fi-rr-menu-burger.svg'
+import ProfilePicture from '../../assets/SomeWomen.jpg'
+import BurgerMenuIcon from '../../assets/BurgerMenu.svg'
 import DarkBurgerMenu from '../../assets/DarkBurgerMenu.svg'
 import {useTheme} from "../../context/ThemeContext";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";

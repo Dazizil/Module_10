@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
 import {Comment, Post} from "../../mockData";
 import './postCard.css'
-import likeIcon from '../../assets/Vector(1).svg'
-import commentsIcon from '../../assets/Vector(2).svg'
-import PencilIcon from '../../assets/fi-rr-pencil.svg'
+import likeIcon from '../../assets/LikeImage.svg'
+import commentsIcon from '../../assets/CommentsIcon.svg'
+import PencilIcon from '../../assets/PencilIcon.svg'
 import {useAuth} from "../../context/AuthContext";
-import commentsOpened from '../../assets/Vector(4).svg'
+import commentsOpened from '../../assets/CommentsOpenedIcon.svg'
 import {useTheme} from "../../context/ThemeContext";
 import DarkLikeIcon from '../../assets/DarkLikeImage.svg'
 import DarkCommentsIcon from '../../assets/DarkComments.svg'
 import DarkCommentsOpened from '../../assets/DarkCommentsOpened.svg'
-import commentsClosed from '../../assets/Vector(3).svg'
+import commentsClosed from '../../assets/CommentsClosedIcon.svg'
 import DarkCommentsClosed from '../../assets/DarkCommentsClosed.svg'
 import DarkPencilIcon from '../../assets/DarkPencilIcon.svg'
-import TrashIcon from '../../assets/fi-sr-trash.svg'
-import DarkTrashIcon from '../../assets/DarlTrashIcon.svg'
+import TrashIcon from '../../assets/TrashIcon.svg'
+import DarkTrashIcon from '../../assets/DarkTrashIcon.svg'
 
 function formatTimeAgo(timestamp: string): string {
     let now = Date.now();
