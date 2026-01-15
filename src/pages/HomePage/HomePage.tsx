@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import './homePage.css'
 import PostsList from "../../components/PostsList/PostsList";
-import {mockPosts, Post} from "../../mockData";
+import {mockPosts} from "../../mockData";
+import {Post} from "../../types/MockDataTypes";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import {useAuth} from "../../context/AuthContext";
 

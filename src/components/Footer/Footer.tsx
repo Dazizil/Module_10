@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './footer.css';
-import logoText from '../../assets/FooterLogo.svg';
+import FooterSidekickLogo from "../icons/FooterSidekickLogo";
 
 interface FooterPropsType {}
 
@@ -12,7 +12,7 @@ class Footer extends Component {
     render() {
         return (
             <div className={'footer-container'}>
-                <img src={logoText} alt={'2024 sidekick'} />
+                <FooterSidekickLogo/>
             </div>
         );
     }

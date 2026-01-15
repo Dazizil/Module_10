@@ -1,11 +1,9 @@
 import React from 'react';
-import EmailIcon from "../../assets/PostIcon.svg";
-import EyeIcon from "../../assets/EyeIcon.svg";
+import EyeIcon from "../../components/icons/EyeIcon";
 import {Link} from "react-router-dom";
 import './signInPage.css'
 import {useTheme} from "../../context/ThemeContext";
-import DarkEmailIcon from "../../assets/DarkPostIcon.svg";
-import DarkEyeIcon from "../../assets/DarkEyeIcon.svg";
+import PostIcon from "../../components/icons/PostIcon";
 
 const SignInPage = () => {
     const {theme} = useTheme();
@@ -21,11 +19,7 @@ const SignInPage = () => {
 
             <form className={'inputs-container'}>
                 <label className={'label-container'} htmlFor={'email-input'}>
-                    {theme === 'dark'?
-                        <img src={EmailIcon} alt={'email'}/>
-                        :
-                        <img src={DarkEmailIcon} alt={'email'}/>
-                    }
+                    <PostIcon fill={theme === 'dark' ? 'white' : 'black'}/>
                     <span>Email</span>
                 </label>
                 <input
@@ -35,12 +29,8 @@ const SignInPage = () => {
                     className={'sign-in__input'}
                 />
 
-                <label className={'label-container'}  htmlFor={'password-input'}>
-                    {theme === 'dark'?
-                        <img src={EyeIcon} alt={'Opened eye'}/>
-                        :
-                        <img src={DarkEyeIcon} alt={'Opened eye'}/>
-                    }
+                <label className={'label-container'} htmlFor={'password-input'}>
+                    <EyeIcon fill={theme === 'dark' ? 'white' : 'black'}/>
                     <span>Password</span>
                 </label>
                 <input

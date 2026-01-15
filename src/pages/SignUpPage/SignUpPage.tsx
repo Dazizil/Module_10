@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import './signUpPage.css'
 import {Link, useNavigate} from "react-router-dom";
-import EmailIcon from '../../assets/PostIcon.svg'
-import EyeIcon from '../../assets/EyeIcon.svg'
-import DarkEmailIcon from '../../assets/DarkPostIcon.svg'
-import DarkEyeIcon from '../../assets/DarkEyeIcon.svg'
+import EyeIcon from '../../components/icons/EyeIcon'
 import {useAuth} from "../../context/AuthContext";
 import {useTheme} from "../../context/ThemeContext";
+import PostIcon from "../../components/icons/PostIcon";
 
 const SignUpPage = () => {
     const [email, setEmail] = useState('');
@@ -16,10 +14,8 @@ const SignUpPage = () => {
     const {theme} = useTheme();
 
     function handleRegister() {
-        // if ((email.indexOf('@') > 0 && email.indexOf('.') > email.indexOf('@') + 1) && password) {
-            login();
-            navigate('/');
-        // }
+        login();
+        navigate('/');
     }
 
     return (
@@ -35,11 +31,7 @@ const SignUpPage = () => {
             <form className={'inputs-container'}>
                 <div className={'input-container'}>
                     <label className={'label-container'} htmlFor={'email-input'}>
-                        {theme === 'dark'?
-                            <img src={EmailIcon} alt={'email'}/>
-                            :
-                            <img src={DarkEmailIcon} alt={'email'}/>
-                        }
+                        <PostIcon fill={theme === 'dark' ? 'white' : 'black'}/>
                         <span>Email</span>
                     </label>
                     <input
@@ -53,11 +45,7 @@ const SignUpPage = () => {
 
                 <div className={'input-container'}>
                     <label className={'label-container'} htmlFor={'password-input'}>
-                        {theme === 'dark'?
-                            <img src={EyeIcon} alt={'Opened eye'}/>
-                            :
-                            <img src={DarkEyeIcon} alt={'Opened eye'}/>
-                        }
+                        <EyeIcon fill={theme === 'dark' ? 'white' : 'black'}/>
                         <span>Password</span>
                     </label>
                     <input

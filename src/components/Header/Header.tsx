@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import './header.css'
-import DarkLogo from '../../assets/SidekickLogo.svg'
-import LightLogo from '../../assets/DarkSidekickLogo.svg'
 import {Link, useLocation} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext";
 import ProfilePicture from '../../assets/SomeWomen.jpg'
-import BurgerMenuIcon from '../../assets/BurgerMenu.svg'
-import DarkBurgerMenu from '../../assets/DarkBurgerMenu.svg'
 import {useTheme} from "../../context/ThemeContext";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import BurgerMenuIcon from "../icons/BurgerMenuIcon";
+import SidekickLogo from "../icons/SidekickLogo";
 
 const Header = () => {
     const [isBurgerOpen, setIsBurgerOpen] = useState(false);
@@ -16,7 +14,6 @@ const Header = () => {
     const {theme} = useTheme();
     const location = useLocation();
 
-    // Страницы с компактным хедером
     const compactPages = ['/signUp', '/signIn', '/error', ''];
     const isCompactHeader = compactPages.includes(location.pathname)
 
@@ -24,11 +21,7 @@ const Header = () => {
         <header className={`header ${isCompactHeader ? 'header--compact' : ''}`}>
 
             <div className={'header__logo-container'}>
-                {theme === 'dark' ?
-                    <img className={'logo'} src={DarkLogo} alt={'Sidekick logo'}/>
-                    :
-                    <img className={'logo'} src={LightLogo} alt={'Sidekick logo'}/>
-                }
+                <SidekickLogo fill={theme === 'dark' ? 'white' : 'black'}/>
             </div>
 
             {isAuthenticated && !isCompactHeader ?
@@ -37,9 +30,8 @@ const Header = () => {
                         <img src={ProfilePicture} alt={'Profile'} className={'profile-img'}/>
                         <span>Name Surname</span>
                     </Link>
-                    <div className={'burger-menu-container'}>
-                        <img src={theme === 'dark' ? BurgerMenuIcon : DarkBurgerMenu}
-                             onClick={() => setIsBurgerOpen(true)}/>
+                    <div className={'burger-menu-container'} onClick={() => setIsBurgerOpen(true)}>
+                        <BurgerMenuIcon fill={theme === 'dark' ? 'white' : 'black'}/>
                     </div>
                 </nav>
                 : !isCompactHeader ?
@@ -50,9 +42,8 @@ const Header = () => {
                         <Link to={'/signIn'} className={'link'}>
                             Sign In
                         </Link>
-                        <div className={'burger-menu-container'}>
-                            <img src={theme === 'dark' ? BurgerMenuIcon : DarkBurgerMenu}
-                                 onClick={() => setIsBurgerOpen(true)}/>
+                        <div className={'burger-menu-container'} onClick={() => setIsBurgerOpen(true)}>
+                            <BurgerMenuIcon fill={theme === 'dark' ? 'white' : 'black'} />
                         </div>
                     </nav>
                     :

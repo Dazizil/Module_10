@@ -1,15 +1,11 @@
 import React, {useState} from 'react';
 import './modalWindow.css'
-import PencilIcon from "../../assets/PencilIcon.svg";
-import PostIcon from '../../assets/PostIcon.svg'
-import CloseImage from '../../assets/CloseImage.svg'
-import DarkCloseImage from '../../assets/DarkCloseImage.svg'
-import FileIcon from '../../assets/FileIcon.svg'
-import {Post} from "../../mockData";
+import PencilIcon from "../icons/PencilIcon";
+import PostIcon from '../icons/CloseImage'
+import CloseImage from '../icons/CloseImage'
+import FileIcon from '../icons/FileIcon'
+import {Post} from "../../types/MockDataTypes";
 import {useTheme} from "../../context/ThemeContext";
-import DarkFileIcon from '../../assets/DarkFileIcon.svg'
-import DarkPostIcon from '../../assets/DarkPostIcon.svg'
-import DarkPencilIcon from '../../assets/DarkPencilIcon.svg'
 
 interface ModalWindowProps {
     isOpen: boolean;
@@ -24,7 +20,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
     const {theme} = useTheme();
     if (!isOpen) return null;
 
-    function handleCreate () {
+    function handleCreate() {
         const newPost: Post = {
             id: '',
             author: 'me',
@@ -44,7 +40,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
         setFile(null);
     }
 
-    function handleFileChange (e: React.ChangeEvent<HTMLInputElement>) {
+    function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files[0]) {
             setFile(e.target.files[0]);
         }
@@ -55,24 +51,15 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
             <div className={'modal'}>
                 <header className={'modal__header'}>
                     <h1 className={'modal__header-heading'}>Create a new post</h1>
-                    {theme === 'dark' ?
-                        <img src={CloseImage} alt={'Close Modal'} className={'modal__header-close-img'}
-                             onClick={onClose}/>
-                        :
-                        <img src={DarkCloseImage} alt={'Close Modal'} className={'modal__header-close-img'}
-                             onClick={onClose}/>
-                    }
-
+                    <div className={'modal__header-close-img'} onClick={onClose}>
+                        <CloseImage fill={theme === 'dark' ? 'white' : 'black'}/>
+                    </div>
                 </header>
 
                 <form className={'modal__form'}>
                     <div className={'modal__form-textarea-container'}>
                         <label className={'label-container'} htmlFor={'post-title-textarea'}>
-                            {theme === 'dark' ?
-                                <img src={PostIcon} alt={'Pencil'}/>
-                            :
-                                <img src={DarkPostIcon} alt={'Pencil'}/>
-                            }
+                            <PostIcon fill={theme === 'dark' ? 'white' : 'black'}/>
                             <span>Post Title</span>
                         </label>
                         <textarea
@@ -86,11 +73,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
 
                     <div className={'modal__form-textarea-container'}>
                         <label className={'label-container'} htmlFor={'description-textarea'}>
-                            {theme === 'dark' ?
-                                <img src={PencilIcon} alt={'Pencil'}/>
-                            :
-                                <img src={DarkPencilIcon} alt={'Pencil'}/>
-                            }
+                            <PencilIcon fill={theme === 'dark' ? 'white' : 'black'}/>
                             <span>Description</span>
                         </label>
                         <textarea
@@ -104,11 +87,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
 
                     <div className={'modal__file'}>
                         <label htmlFor={'post-file'} className={'modal__label'}>
-                            {theme === 'dark' ?
-                                <img src={FileIcon} alt={'File'} className={'modal__file-icon'}/>
-                                :
-                                <img src={DarkFileIcon} alt={'File'} className={'modal__file-icon'}/>
-                            }
+                            <FileIcon fill={theme === 'dark' ? 'white' : 'black'}/>
                             <div className={'modal__file__text-container'}>
                                 <span>Select a file or drag and drop here</span>
                                 <span

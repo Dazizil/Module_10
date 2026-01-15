@@ -1,13 +1,8 @@
 import React from 'react';
 import {mockCommunities} from "../../mockData";
 import './communities.css'
+import {memberNumberConverter} from "../../utils/helpers";
 
-function memberNumberConverter(numberOfMembers: number): string {
-    if (numberOfMembers < 1000) return numberOfMembers.toString();
-    if (numberOfMembers < 1_000_000) return `${numberOfMembers / 1000}k`;
-
-    return `${numberOfMembers / 1_000_000}m`
-}
 
 const Communities = () => {
     return (

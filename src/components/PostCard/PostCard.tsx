@@ -1,40 +1,16 @@
 import React, {useState} from 'react';
-import {Comment, Post} from "../../mockData";
+import {Comment, Post} from "../../types/MockDataTypes";
 import './postCard.css'
-import likeIcon from '../../assets/LikeImage.svg'
-import commentsIcon from '../../assets/CommentsIcon.svg'
-import PencilIcon from '../../assets/PencilIcon.svg'
+import LikeIcon from '../icons/LikeIcon'
+import PencilIcon from '../icons/PencilIcon'
 import {useAuth} from "../../context/AuthContext";
-import commentsOpened from '../../assets/CommentsOpenedIcon.svg'
 import {useTheme} from "../../context/ThemeContext";
-import DarkLikeIcon from '../../assets/DarkLikeImage.svg'
-import DarkCommentsIcon from '../../assets/DarkComments.svg'
-import DarkCommentsOpened from '../../assets/DarkCommentsOpened.svg'
-import commentsClosed from '../../assets/CommentsClosedIcon.svg'
-import DarkCommentsClosed from '../../assets/DarkCommentsClosed.svg'
-import DarkPencilIcon from '../../assets/DarkPencilIcon.svg'
-import TrashIcon from '../../assets/TrashIcon.svg'
-import DarkTrashIcon from '../../assets/DarkTrashIcon.svg'
+import TrashIcon from '../icons/ThrashIcon'
+import {formatTimeAgo} from "../../utils/helpers";
+import CommentsClosedIcon from "../icons/CommentsClosedIcon";
+import CommentsOpenedIcon from "../icons/CommentsOpenedIcon";
+import CommentsIcon from "../icons/CommentsIcon";
 
-function formatTimeAgo(timestamp: string): string {
-    let now = Date.now();
-    let postTime = Date.parse(timestamp);
-    let diffMs = now - postTime;
-
-    //Если дата в будущем
-    if (diffMs < 0) return "just now";
-
-    let seconds = Math.floor(diffMs / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    let days = Math.floor(hours / 24);
-
-    if (seconds < 60) return "just now";
-    if (minutes < 60) return `${minutes} min ago`;
-    if (hours < 24) return `${hours} hours ago`;
-    if (days < 7) return `${days} days ago`;
-    return new Date(postTime).toLocaleDateString();
-}
 
 const PostCard = ({post}: { post: Post }) => {
     const [likes, setLikes] = useState(post.likes);
@@ -92,58 +68,27 @@ const PostCard = ({post}: { post: Post }) => {
 
                 <footer className={'likes-and-comments-container'}>
                     <div className={'likes-container'}>
-                        {theme === 'dark' ?
-                            <img style={{
-                                filter: isLiked ?
-                                    'brightness(0) saturate(100%) invert(67%) sepia(98%) saturate(635%) hue-rotate(335deg)'
-                                    : 'none'
-                            }} onClick={likeHandle} src={likeIcon} alt={'like'}/>
-                            :
-                            <img style={{
-                                filter: isLiked ?
-                                    'brightness(0) saturate(100%) invert(67%) sepia(98%) saturate(635%) hue-rotate(335deg)'
-                                    : 'none'
-                            }} onClick={likeHandle} src={DarkLikeIcon} alt={'like'}/>
-                        }
-
+                        <div onClick={likeHandle}>
+                            <LikeIcon stroke={theme === 'dark' ? 'white' : 'black'} filter={isLiked ?
+                                'brightness(0) saturate(100%) invert(67%) sepia(98%) saturate(635%) hue-rotate(335deg)'
+                                : 'none'}/>
+                        </div>
                         {likes} likes
                     </div>
 
                     <div className={'likes-container'}>
-                        {theme === 'dark' ?
-                            <img src={commentsIcon} alt={'comments'}/>
-                            :
-                            <img src={DarkCommentsIcon} alt={'comments'}/>
-                        }
+                        <CommentsIcon stroke={theme === 'dark' ? 'white' : 'black'}/>
                         {isAuthenticated ?
                             <>
                                 {comments.length} comments
                                 {isClicked ?
-                                    theme === 'dark' ?
-                                        <img
-                                            onClick={() => setIsClicked(false)}
-                                            src={commentsOpened}
-                                            alt={'Comments opened'}
-                                        />
-                                        :
-                                        <img
-                                            onClick={() => setIsClicked(false)}
-                                            src={DarkCommentsOpened}
-                                            alt={'Comments opened'}
-                                        />
+                                    <div onClick={() => setIsClicked(false)}>
+                                        <CommentsOpenedIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                                    </div>
                                     :
-                                    theme === 'dark' ?
-                                        <img
-                                            onClick={() => setIsClicked(true)}
-                                            src={commentsClosed}
-                                            alt={'Comments closed'}
-                                        />
-                                        :
-                                        <img
-                                            onClick={() => setIsClicked(true)}
-                                            src={DarkCommentsClosed}
-                                            alt={'Comments closed'}
-                                        />
+                                    <div onClick={() => setIsClicked(true)}>
+                                        <CommentsClosedIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                                    </div>
                                 }
                             </>
                             :
@@ -153,45 +98,45 @@ const PostCard = ({post}: { post: Post }) => {
                         }
                     </div>
                 </footer>
-                {isAuthenticated ?
-                    <>
-                        {isClicked ?
-                            (
-                                <div className={'comments-section'}>
-                                    {comments.map(comment =>
-                                        <div className={'comment-container'}>
-                                            <span>#{comment.id}. {comment.text}</span>
-                                            <img src={theme === 'dark' ? TrashIcon : DarkTrashIcon} onClick={() => deleteComment(comment.id)}/>
-                                        </div>)}
-                                </div>
-                            )
-                            : ''}
-                        <div className={'textarea-container'}>
-                            <label className={'label-container'} htmlFor={'comments-textarea'}>
-                                {theme === 'dark' ?
-                                    <img src={PencilIcon} alt={'Pencil'}/>
-                                    :
-                                    <img src={DarkPencilIcon} alt={'Pencil'}/>
-                                }
-                                <span>Add a comment</span>
-                            </label>
-                            <textarea
-                                id={'comments-textarea'}
-                                placeholder={'Write description here...'}
-                                className={'comments-textarea'}
-                                value={comment}
-                                onChange={(e) => setComment(e.target.value)}
-                            />
-                            <button className={'add-comment-btn'} onClick={() => commentCreator(comment)}>Add a
-                                comment
-                            </button>
-                        </div>
-                    </>
-                    : <></>
+                {
+                    isAuthenticated ?
+                        <>
+                            {isClicked ?
+                                (
+                                    <div className={'comments-section'}>
+                                        {comments.map(comment =>
+                                            <div className={'comment-container'}>
+                                                <span>#{comment.id}. {comment.text}</span>
+                                                <div onClick={() => deleteComment(comment.id)}>
+                                                    <TrashIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                                                </div>
+                                            </div>)}
+                                    </div>
+                                )
+                                : ''}
+                            <div className={'textarea-container'}>
+                                <label className={'label-container'} htmlFor={'comments-textarea'}>
+                                    <PencilIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                                    <span>Add a comment</span>
+                                </label>
+                                <textarea
+                                    id={'comments-textarea'}
+                                    placeholder={'Write description here...'}
+                                    className={'comments-textarea'}
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                />
+                                <button className={'add-comment-btn'} onClick={() => commentCreator(comment)}>Add a
+                                    comment
+                                </button>
+                            </div>
+                        </>
+                        : <></>
                 }
             </div>
         </article>
-    );
+    )
+        ;
 };
 
 export default PostCard;
