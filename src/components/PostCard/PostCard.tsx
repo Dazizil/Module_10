@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Comment, Post} from "../../types/MockDataTypes";
 import './postCard.css'
 import LikeIcon from '../icons/LikeIcon'
@@ -44,6 +44,18 @@ const PostCard = ({post}: { post: Post }) => {
         setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
     }
 
+    function handleCommentsCloseClick() {
+        setIsClicked(false);
+    }
+
+    function handleCommentsOpenClick() {
+        setIsClicked(true);
+    }
+
+    function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
+        setComment(event.target.value);
+    }
+    
     return (
         <article className={'post-container'}>
             <div className={'post-info-container'}>
@@ -69,7 +81,7 @@ const PostCard = ({post}: { post: Post }) => {
                 <footer className={'likes-and-comments-container'}>
                     <div className={'likes-container'}>
                         <div onClick={likeHandle}>
-                            <LikeIcon stroke={theme === 'dark' ? 'white' : 'black'} filter={isLiked ?
+                            <LikeIcon filter={isLiked ?
                                 'brightness(0) saturate(100%) invert(67%) sepia(98%) saturate(635%) hue-rotate(335deg)'
                                 : 'none'}/>
                         </div>
@@ -77,17 +89,17 @@ const PostCard = ({post}: { post: Post }) => {
                     </div>
 
                     <div className={'likes-container'}>
-                        <CommentsIcon stroke={theme === 'dark' ? 'white' : 'black'}/>
+                        <CommentsIcon/>
                         {isAuthenticated ?
                             <>
                                 {comments.length} comments
                                 {isClicked ?
-                                    <div onClick={() => setIsClicked(false)}>
-                                        <CommentsOpenedIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                                    <div onClick={handleCommentsCloseClick}>
+                                        <CommentsOpenedIcon/>
                                     </div>
                                     :
-                                    <div onClick={() => setIsClicked(true)}>
-                                        <CommentsClosedIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                                    <div onClick={handleCommentsOpenClick}>
+                                        <CommentsClosedIcon/>
                                     </div>
                                 }
                             </>
@@ -108,7 +120,7 @@ const PostCard = ({post}: { post: Post }) => {
                                             <div className={'comment-container'}>
                                                 <span>#{comment.id}. {comment.text}</span>
                                                 <div onClick={() => deleteComment(comment.id)}>
-                                                    <TrashIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                                                    <TrashIcon/>
                                                 </div>
                                             </div>)}
                                     </div>
@@ -116,7 +128,7 @@ const PostCard = ({post}: { post: Post }) => {
                                 : ''}
                             <div className={'textarea-container'}>
                                 <label className={'label-container'} htmlFor={'comments-textarea'}>
-                                    <PencilIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                                    <PencilIcon/>
                                     <span>Add a comment</span>
                                 </label>
                                 <textarea
@@ -124,7 +136,7 @@ const PostCard = ({post}: { post: Post }) => {
                                     placeholder={'Write description here...'}
                                     className={'comments-textarea'}
                                     value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
+                                    onChange={handleChange}
                                 />
                                 <button className={'add-comment-btn'} onClick={() => commentCreator(comment)}>Add a
                                     comment

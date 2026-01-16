@@ -45,6 +45,7 @@
     gap: 24px;
     background-color: var(--secondly-background-color);
     border: 1px dashed var(--border-color);
+    padding-left: 35px;
 
 }
 
@@ -126,6 +127,7 @@
 
     .modal__label {
         height: 68px;
+        padding-left: 15px;
     }
 
     .modal__file-icon {

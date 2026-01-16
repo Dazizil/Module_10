@@ -2,11 +2,9 @@ import React from 'react';
 import EyeIcon from "../../components/icons/EyeIcon";
 import {Link} from "react-router-dom";
 import './signInPage.css'
-import {useTheme} from "../../context/ThemeContext";
 import PostIcon from "../../components/icons/PostIcon";
 
 const SignInPage = () => {
-    const {theme} = useTheme();
     return (
         <div className={'sign-in'}>
             <header>
@@ -19,7 +17,7 @@ const SignInPage = () => {
 
             <form className={'inputs-container'}>
                 <label className={'label-container'} htmlFor={'email-input'}>
-                    <PostIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                    <PostIcon/>
                     <span>Email</span>
                 </label>
                 <input
@@ -30,7 +28,7 @@ const SignInPage = () => {
                 />
 
                 <label className={'label-container'} htmlFor={'password-input'}>
-                    <EyeIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                    <EyeIcon/>
                     <span>Password</span>
                 </label>
                 <input

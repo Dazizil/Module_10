@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './signUpPage.css'
 import {Link, useNavigate} from "react-router-dom";
 import EyeIcon from '../../components/icons/EyeIcon'
@@ -18,6 +18,10 @@ const SignUpPage = () => {
         navigate('/');
     }
 
+    function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+        setEmail(event.target.value);
+    }
+
     return (
         <div className={'sign-up'}>
             <header>
@@ -31,7 +35,7 @@ const SignUpPage = () => {
             <form className={'inputs-container'}>
                 <div className={'input-container'}>
                     <label className={'label-container'} htmlFor={'email-input'}>
-                        <PostIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                        <PostIcon/>
                         <span>Email</span>
                     </label>
                     <input
@@ -39,13 +43,13 @@ const SignUpPage = () => {
                         id={'email-input'}
                         placeholder={'Enter email'}
                         className={'sign-up__input'}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleInputChange}
                     />
                 </div>
 
                 <div className={'input-container'}>
                     <label className={'label-container'} htmlFor={'password-input'}>
-                        <EyeIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+                        <EyeIcon/>
                         <span>Password</span>
                     </label>
                     <input
@@ -53,7 +57,7 @@ const SignUpPage = () => {
                         id={'password-input'}
                         placeholder={'Enter password'}
                         className={'sign-up__input'}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handleInputChange}
                     />
                 </div>
             </form>

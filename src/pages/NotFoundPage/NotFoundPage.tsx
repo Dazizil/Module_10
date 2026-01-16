@@ -7,7 +7,7 @@ const NotFoundPage = () => {
     const {theme} = useTheme()
     return (
         <div className={'not-found'}>
-            <NotFoundIcon fill={theme === 'dark' ? 'white' : 'black'}/>
+            <NotFoundIcon/>
             <div className={'not-found__title'}>Page not found</div>
         </div>
     );

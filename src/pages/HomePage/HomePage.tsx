@@ -10,7 +10,7 @@ const HomePage = () => {
     const {isAuthenticated} = useAuth();
     const [posts, setPosts] = useState<Post[]>(mockPosts);
 
-    const addPost = (newPost: Post) => {
+    function addPost (newPost: Post) {
         setPosts(prev => [newPost, ...prev]);
     };
 

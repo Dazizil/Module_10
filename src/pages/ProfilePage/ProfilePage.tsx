@@ -6,7 +6,7 @@ import {useTheme} from "../../context/ThemeContext";
 
 const ProfilePage = () => {
     const {logout} = useAuth();
-    const {theme, toggleTheme} = useTheme()
+    const {toggleTheme} = useTheme()
     const navigate = useNavigate();
     function handleLogout() {
         logout();
