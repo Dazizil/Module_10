@@ -17,7 +17,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
     const [windowWidth, setWindowWidth] = useState<number>(0);
     const [description, setDescription] = useState('');
     const [file, setFile] = useState<File | null>(null);
-    
+
     useEffect(() => {
         function updateWindowWidth() {
             setWindowWidth(window.innerWidth);

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './homePage.css'
-import PostsList from "../../components/PostsList/PostsList";
+import PostsList from "../../components/Feed/Feed";
+import Feed from "../../components/Feed/Feed";
 import {mockPosts} from "../../mockData";
 import {Post} from "../../types/MockDataTypes";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -19,7 +20,7 @@ const HomePage = () => {
         <div className={'home-page-container'}>
             {isAuthenticated ?
                 <main className={'main-container-authorised'}>
-                    <PostsList posts={posts} onAddPost={addPost}/>
+                    <Feed posts={posts} onAddPost={addPost}/>
                     <Sidebar/>
                 </main>
                 :

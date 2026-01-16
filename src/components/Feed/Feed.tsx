@@ -4,12 +4,12 @@ import PostCard from '../PostCard/PostCard'
 import PostForm from "../PostForm/PostForm";
 import {useAuth} from "../../context/AuthContext";
 
-interface PostsListProps {
+interface FeedProps {
     posts: Post[],
     onAddPost?: (post: Post) => void
 }
 
-const PostsList = ({posts, onAddPost}: PostsListProps) => {
+const Feed = ({posts, onAddPost}: FeedProps) => {
     const {isAuthenticated} = useAuth();
     return (
         <div>
@@ -24,4 +24,4 @@ const PostsList = ({posts, onAddPost}: PostsListProps) => {
     );
 };
 
-export default PostsList;
+export default Feed;
