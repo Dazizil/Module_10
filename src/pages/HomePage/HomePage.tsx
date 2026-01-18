@@ -1,27 +1,63 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './homePage.css'
 import PostsList from "../../components/Feed/Feed";
 import Feed from "../../components/Feed/Feed";
-import {mockPosts} from "../../mockData";
-import {Post} from "../../types/MockDataTypes";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import axios from "axios";
+import {PostsApiResponse} from "../../types/apiResponse";
 import {useAuth} from "../../context/AuthContext";
+import PopUpNotification from "../../components/PopUpNotification/PopUpNotification";
 
 const HomePage = () => {
-    const {isAuthenticated} = useAuth();
-    const [posts, setPosts] = useState<Post[]>(mockPosts);
+    const { isAuthorised } = useAuth();
+    const [posts, setPosts] = useState<PostsApiResponse[]>([]);
+    const [notification, setNotification] = useState({
+        isVisible: false,
+        message: '',
+    });
 
-    function addPost (newPost: Post) {
+    function showNotification (message: string) {
+        setNotification({isVisible: true, message});
+    }
+
+    function hideNotification () {
+        setNotification(prev => ({...prev, isVisible: false}));
+    }
+
+        function addPost (newPost: PostsApiResponse) {
         setPosts(prev => [newPost, ...prev]);
-    };
+        showNotification('Post created successfully');
+    }
+
+
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/posts');
+                console.log('Ответ по постам',response.data)
+                setPosts(response.data);
+            } catch (error) {
+                console.error('Ошибка при загрузке постов:', error);
+            }
+        };
+
+
+        fetchPosts();
+    }, []);
 
 
     return (
         <div className={'home-page-container'}>
-            {isAuthenticated ?
+            {isAuthorised ?
                 <main className={'main-container-authorised'}>
                     <Feed posts={posts} onAddPost={addPost}/>
                     <Sidebar/>
+                    <PopUpNotification
+                        isVisible={notification.isVisible}
+                        message={notification.message}
+                        onClose={hideNotification}
+                    />
                 </main>
                 :
                 <main className={'main-container-unauthorised '}>

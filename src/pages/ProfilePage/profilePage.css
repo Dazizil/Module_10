@@ -1,13 +1,17 @@
 .profile {
     height: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     gap: 50px;
+    font-family: Inter, sans-serif;
 }
 
 .profile__edit {
+    display: flex;
+    flex-direction: column;
     width: 575px;
+    gap: 32px;
 }
 
 .profile__content {
@@ -15,6 +19,9 @@
 }
 
 .profile__preferences {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
     height: 130px;
 }
 
@@ -30,12 +37,116 @@
     height: 44px;
 }
 
+.profile__navigation {
+    width: 211px;
+    height: 40px;
+    background-color: var(--secondly-background-color);
+    display: flex;
+    flex-direction: row;
+    margin-top: 28px;
+}
+
+.profile__navigation-button {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--button-background-color);
+}
+
+.profile__main-container {
+    display: flex;
+    gap: 50px;
+    height: 640px;
+}
+
+.profile__save-changes-button {
+    width: 244px;
+    height: 44px;
+}
+
+.profile__photo-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.profile__photo-username-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__profile-image {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+}
+
+.profile__change-photo-text {
+    color: var(--secondly-font-color);
+    line-height: 150%;
+    font-weight: 400;
+}
+
+.profile__description-textarea {
+    width: 100%;
+    height: 110px;
+    color: var(--font-color);
+    padding: 10px;
+}
+
+.profile__info-container {
+    height: 20px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.profile__info-text {
+    color: var(--secondly-font-color);
+}
+
+.profile__theme-switch-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+.profile__tables-container {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 82px;
+}
+
+.profile__table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px
+}
+
+.profile__table-view-container {
+    width: 1198px;
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
 @media (max-width: 1200px) {
     .profile__content {
         width: 50%;
     }
 
-    .profile__edit{
+    .profile__edit {
         width: 50%;
     }
 }

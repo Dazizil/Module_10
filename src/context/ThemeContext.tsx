@@ -3,8 +3,7 @@ import {Theme, ThemeContextType} from "../types/contextTypes/ThemeContextTypes";
 
 const ThemeContext = createContext<ThemeContextType>({
     theme: 'dark',
-    toggleTheme: () => {
-    }
+    toggleTheme: () => {},
 });
 
 export function ThemeProvider({children}: { children: ReactNode }) {
@@ -18,7 +17,7 @@ export function ThemeProvider({children}: { children: ReactNode }) {
         document.documentElement.className = theme;
     }, [theme]);
 
-    function toggleTheme() {
+    const toggleTheme = () => {
         setTheme(prev => prev === 'dark' ? 'light' : 'dark');
     };
 

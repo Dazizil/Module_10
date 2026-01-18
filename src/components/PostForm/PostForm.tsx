@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import './postForm.css';
-import ProfilePicture from '../../assets/SomeWomen.jpg';
 import ModalWindow from '../ModalWindow/ModalWindow';
-import {Post} from "../../types/MockDataTypes";
+import {PostsApiResponse} from '../../types/apiResponse';
+import axios from 'axios';
 
 interface PostFormProps {
-    onAddPost: (post: Post) => void;
+    onAddPost: (post: PostsApiResponse) => void;
 }
 
 interface PostFormState {
     isModalOpen: boolean;
+    myPhoto: string;
 }
 
 class PostForm extends Component<PostFormProps, PostFormState> {
@@ -17,7 +18,24 @@ class PostForm extends Component<PostFormProps, PostFormState> {
         super(props);
         this.state = {
             isModalOpen: false,
+            myPhoto: '',
         };
+    }
+
+    async componentDidMount() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:3000/api/me', {
+                headers: {
+                    Authorization: token ? `Bearer ${token}` : undefined,
+                },
+            });
+            console.log('Ответ по мне', response.data.profileImage);
+            this.setState({ myPhoto: response.data.profileImage || '' });
+        } catch (error) {
+            console.error('Ошибка при загрузке данных пользователя:', error);
+            this.setState({ myPhoto: '' });
+        }
     }
 
     handleOpenModal = () => {
@@ -29,8 +47,8 @@ class PostForm extends Component<PostFormProps, PostFormState> {
     };
 
     render() {
+        const { isModalOpen, myPhoto } = this.state;
         const { onAddPost } = this.props;
-        const { isModalOpen } = this.state;
 
         return (
             <div className="post-form-container">
@@ -40,7 +58,7 @@ class PostForm extends Component<PostFormProps, PostFormState> {
                     onCreate={onAddPost}
                 />
                 <div className="pic-cont">
-                    <img src={ProfilePicture} className="profile-picture" alt="Profile" />
+                    <img src={myPhoto} alt="Profile" className="profile-picture" />
                     <span>What’s happening?</span>
                 </div>
                 <button onClick={this.handleOpenModal} className="post-form-button">

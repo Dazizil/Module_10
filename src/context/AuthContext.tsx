@@ -1,25 +1,54 @@
 import React, {createContext, ReactNode, useContext, useState} from 'react';
-import {AuthContextType} from "../types/contextTypes/AuthContextTypes";
+import axios from 'axios';
+import {User} from "../types/apiResponse";
+
+interface AuthContextType {
+    isAuthorised: boolean;
+    user: User | null;
+    login: () => Promise<void>;
+    logout: () => void;
+}
 
 const AuthContext = createContext<AuthContextType>({
-    isAuthenticated: false,
-    login: () => {},
-    logout: () => {},
+    isAuthorised: false,
+    user: null,
+    login: async () => {
+    },
+    logout: () => {
+    },
 });
 
 export function AuthProvider({children}: { children: ReactNode }) {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthorised, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+    const [user, setUser] = useState<User | null>(null);
 
-    function login () {
-        setIsAuthenticated(true);
+    async function login() {
+        try {
+            const response = await axios.post('http://localhost:3000/api/login', {
+                email: 'helena.hills@social.com',
+                password: 'password789',
+            });
+
+            const {token, user: userData} = response.data;
+
+            localStorage.setItem('token', token);
+
+            setIsAuthenticated(true);
+            setUser(userData);
+            console.log('Юзер: ', user)
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
     }
 
-    function logout () {
+    async function logout() {
+        localStorage.removeItem('token');
         setIsAuthenticated(false);
+        setUser(null);
     }
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, login, logout}}>
+        <AuthContext.Provider value={{isAuthorised, user, login, logout}}>
             {children}
         </AuthContext.Provider>
     );

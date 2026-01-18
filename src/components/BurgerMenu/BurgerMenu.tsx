@@ -9,7 +9,7 @@ interface BurgerMenuProps {
 }
 
 const BurgerMenu = ({isOpen, onClose}: BurgerMenuProps) => {
-    const {isAuthenticated} = useAuth();
+    const {isAuthorised} = useAuth();
     if (!isOpen) return null;
 
     function handleBurgerMenuClick(event: React.MouseEvent) {
@@ -18,7 +18,7 @@ const BurgerMenu = ({isOpen, onClose}: BurgerMenuProps) => {
 
     return (
         <div className="burger-menu-overlay" onClick={onClose}>
-            {isAuthenticated ?
+            {isAuthorised ?
                 <div className="burger-menu" onClick={handleBurgerMenuClick}>
                     <nav className="burger-menu__nav">
                         <Link to={'/profile'} className={'burger__link'} onClick={onClose}>Profile info</Link>

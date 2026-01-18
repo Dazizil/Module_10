@@ -29,6 +29,7 @@
 .sign-up__button {
     height: 44px;
     width: 327px;
+    margin-top: 8px;
 }
 
 .sign-up__header {

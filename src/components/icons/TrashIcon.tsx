@@ -1,7 +1,7 @@
 import React from 'react';
 import {useTheme} from "../../context/ThemeContext";
 
-const ThrashIcon = () => {
+const TrashIcon = () => {
     const {theme} = useTheme();
     const ICON_COLOR = theme === 'dark' ? 'white' : 'black';
     return (
@@ -13,4 +13,4 @@ const ThrashIcon = () => {
     );
 };
 
-export default ThrashIcon;
+export default TrashIcon;

@@ -1,22 +1,56 @@
-import React from 'react';
-import {mockCommunities} from "../../mockData";
+import React, {useEffect, useState} from 'react';
 import './communities.css'
-import {memberNumberConverter} from "../../utils/helpers";
+import axios from "axios";
+import {CommunitiesApiResponse} from "../../types/apiResponse";
+import {useAuth} from "../../context/AuthContext";
 
+
+function memberNumberConverter(numberOfMembers: number): string {
+    if (numberOfMembers < 1000) return numberOfMembers.toString();
+    if (numberOfMembers < 1_000_000) return `${numberOfMembers / 1000}k`;
+
+    return `${numberOfMembers / 1_000_000}m`
+}
 
 const Communities = () => {
+    const {logout} = useAuth();
+    const [communities, setCommunities] = useState<CommunitiesApiResponse[]>([]);
+
+    useEffect(() => {
+        const fetchGroups = async () => {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await axios.get('http://localhost:3000/api/groups', {
+                    headers: {
+                        Authorization: token ? `Bearer ${token}` : undefined,
+                    }
+                })
+
+                setCommunities(response.data);
+                console.log('Ответ по группам', response.data);
+            } catch (error: any) {
+                if (error.response?.status === 401) {
+                    logout();
+                }
+                console.log(error);
+            }
+        }
+
+        fetchGroups();
+    }, [])
+
     return (
         <section className={'communities-section'}>
             <ul className={'communities-container'}>
                 <h2 className={'title'}>Communities you might like</h2>
-                {mockCommunities.map(community =>
+                {communities.map(community =>
                     <li className={'community-info-container'}>
-                        <img className={'avatar-img'} src={community.avatar} alt={'Community avatar'}/>
+                        <img className={'avatar-img'} src={community.photo} alt={''}/>
 
                         <div className={'community-name-container'}>
-                            <span>{community.name}</span>
+                            <span>{community.title}</span>
                             <span
-                                className={'community-name'}>{memberNumberConverter(community.numberOfMembers)} members</span>
+                                className={'community-name'}>{memberNumberConverter(community.membersCount)} members</span>
                         </div>
                     </li>
                 )}

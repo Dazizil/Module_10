@@ -1,19 +1,19 @@
 import React from 'react';
-import {Post} from "../../types/MockDataTypes";
 import PostCard from '../PostCard/PostCard'
 import PostForm from "../PostForm/PostForm";
 import {useAuth} from "../../context/AuthContext";
+import {PostsApiResponse} from "../../types/apiResponse";
 
 interface FeedProps {
-    posts: Post[],
-    onAddPost?: (post: Post) => void
+    posts: PostsApiResponse[],
+    onAddPost?: (post: PostsApiResponse) => void
 }
 
 const Feed = ({posts, onAddPost}: FeedProps) => {
-    const {isAuthenticated} = useAuth();
+    const {isAuthorised} = useAuth();
     return (
         <div>
-            {isAuthenticated && onAddPost && (
+            {isAuthorised && onAddPost && (
                 <PostForm onAddPost={onAddPost}/>
             )}
 

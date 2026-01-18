@@ -1,15 +1,16 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import './modalWindow.css'
+import axios from "axios";
+import {PostsApiResponse} from "../../types/apiResponse";
+import CloseImage from "../icons/CloseImage";
+import PostIcon from "../icons/PostIcon";
 import PencilIcon from "../icons/PencilIcon";
-import PostIcon from '../icons/PostIcon'
-import CloseImage from '../icons/CloseImage'
-import FileIcon from '../icons/FileIcon'
-import {Post} from "../../types/MockDataTypes";
+import FileIcon from "../icons/FileIcon";
 
 interface ModalWindowProps {
     isOpen: boolean;
     onClose: () => void;
-    onCreate: (post: Post) => void
+    onCreate: (post: PostsApiResponse) => void
 }
 
 const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
@@ -34,24 +35,29 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
 
     if (!isOpen) return null;
 
-    function handleCreate() {
-        const newPost: Post = {
-            id: '',
-            author: 'me',
-            username: 'me',
-            authorAvatar: '',
-            timestamp: Date(),
-            imageUrl: file ? URL.createObjectURL(file) : '',
-            description: `${description}`,
-            likes: 0,
-            comments: []
-        };
+    async function handleCreate() {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.post(`http://localhost:3000/api/posts`,
+                {
+                    title: title,
+                    content: description,
+                    image: file ? URL.createObjectURL(file) : ''
+                }
+                , {
+                    headers: {
+                        Authorization: token ? `Bearer ${token}` : undefined
+                    }
+                })
 
-        onCreate(newPost);
-        onClose();
-        setTitle('');
-        setDescription('');
-        setFile(null);
+            onCreate(response.data);
+            onClose();
+            setTitle('');
+            setDescription('');
+            setFile(null);
+        } catch (error: any) {
+
+        }
     }
 
     function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
@@ -60,8 +66,12 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
         }
     }
 
-    function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    function handleTitleChange(event: ChangeEvent<HTMLTextAreaElement>) {
         setTitle(event.target.value);
+    }
+
+    function handleDescriptionChange(event: ChangeEvent<HTMLTextAreaElement>) {
+        setDescription(event.target.value);
     }
 
     return (
@@ -85,7 +95,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
                             placeholder={'Enter post title'}
                             className={'post__form-title-textarea'}
                             value={title}
-                            onChange={handleChange}
+                            onChange={handleTitleChange}
                         />
                     </div>
 
@@ -99,7 +109,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
                             placeholder={'Write description here...'}
                             className={'comments-textarea'}
                             value={description}
-                            onChange={handleChange}
+                            onChange={handleDescriptionChange}
                         />
                     </div>
 
@@ -110,7 +120,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
                                 <span>Select a file or drag and drop here</span>
                                 {windowWidth > 720 ?
                                     <span className={'modal__file-second-text'}>JPG, PNG or PDF, file size no more than 10MB</span>
-                                :
+                                    :
                                     <span className={'modal__file-second-text'}>JPG or PNG, no more then 10MB</span>
                                 }
                             </div>

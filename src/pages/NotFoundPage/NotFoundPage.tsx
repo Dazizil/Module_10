@@ -1,10 +1,8 @@
 import React from 'react';
 import './notFoundPage.css'
-import {useTheme} from "../../context/ThemeContext";
 import NotFoundIcon from "../../components/icons/NotFoundIcon";
 
 const NotFoundPage = () => {
-    const {theme} = useTheme()
     return (
         <div className={'not-found'}>
             <NotFoundIcon/>
