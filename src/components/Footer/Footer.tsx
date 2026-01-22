@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './footer.css';
+import styles from './footer.module.css';
 import FooterSidekickLogo from "../icons/FooterSidekickLogo";
 
 interface FooterPropsType {}
@@ -11,7 +11,7 @@ class Footer extends Component {
 
     render() {
         return (
-            <div className={'footer-container'} data-testid={'footer-container'}>
+            <div className={styles['footer-container']} data-testid={'footer-container'}>
                 <FooterSidekickLogo/>
             </div>
         );

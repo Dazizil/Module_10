@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import './postForm.css';
+import styles from './postForm.module.css';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import {PostsApiResponse} from '../../types/apiResponse';
 import axios from 'axios';
+import Image from "next/image";
 
 interface PostFormProps {
     onAddPost: (post: PostsApiResponse) => void;
@@ -51,17 +52,17 @@ class PostForm extends Component<PostFormProps, PostFormState> {
         const { onAddPost } = this.props;
 
         return (
-            <div className="post-form-container" data-testid={'post-form-container'}>
+            <div className={styles['post-form-container']} data-testid={'post-form-container'}>
                 <ModalWindow
                     isOpen={isModalOpen}
                     onClose={this.handleCloseModal}
                     onCreate={onAddPost}
                 />
-                <div className="pic-cont">
-                    <img src={myPhoto} alt="Profile" className="profile-picture" />
-                    <span>What’s happening?</span>
+                <div className={styles['post-form-picture-container']}>
+                    <Image width={64} height={64} src={myPhoto} alt="Profile" className={styles['profile-picture']} />
+                    <span>What&#39;s happening?</span>
                 </div>
-                <button onClick={this.handleOpenModal} className="post-form-button">
+                <button onClick={this.handleOpenModal} className={styles['post-form-button']}>
                     Tell everyone
                 </button>
             </div>

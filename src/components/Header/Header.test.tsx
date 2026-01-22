@@ -1,11 +1,14 @@
 import {render, screen, waitFor} from '@testing-library/react';
-import {MemoryRouter} from 'react-router-dom';
 import Header from './Header';
 import axios from 'axios';
-import {useAuth} from '../../context/AuthContext';
+import {useAuth} from '@/context/AuthContext';
 
 jest.mock('axios');
-jest.mock('../../context/AuthContext');
+jest.mock('@/context/AuthContext');
+const mockUseRouter = jest.fn();
+jest.mock('next/router', () => ({
+    useRouter: () => mockUseRouter(),
+}));
 
 
 const mockUseAuth = useAuth as jest.MockedFunction<typeof useAuth>;
@@ -20,7 +23,16 @@ describe('Header', () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
-        mockedAxios.get.mockResolvedValue({ mockUser });
+        mockedAxios.get.mockResolvedValue({ data: mockUser });
+        mockUseRouter.mockReturnValue({
+            pathname: '/',
+        });
+        Object.defineProperty(window, 'localStorage', {
+            value: {
+                getItem: jest.fn(() => 'test-token'),
+            },
+            writable: true
+        });
     });
 
     test('shows auth links for unauthenticated user', () => {
@@ -32,9 +44,7 @@ describe('Header', () => {
         });
 
         render(
-            <MemoryRouter initialEntries={['/home']}>
                 <Header />
-            </MemoryRouter>
         );
 
         expect(screen.getByText('Sign Up')).toBeInTheDocument();
@@ -50,9 +60,7 @@ describe('Header', () => {
         });
 
         render(
-            <MemoryRouter initialEntries={['/home']}>
                 <Header />
-            </MemoryRouter>
         );
 
         expect(screen.getByText('Sign Up')).toBeInTheDocument();
@@ -66,11 +74,13 @@ describe('Header', () => {
             login: jest.fn(),
             logout: jest.fn(),
         });
+        
+        mockUseRouter.mockReturnValue({
+            pathname: '/SignUpPage',
+        });
 
         render(
-            <MemoryRouter initialEntries={['/signUp']}>
                 <Header />
-            </MemoryRouter>
         );
 
         expect(screen.queryByText('Helena Hills')).not.toBeInTheDocument();
@@ -86,14 +96,19 @@ describe('Header', () => {
             logout: mockLogout,
         });
 
+        Object.defineProperty(window, 'localStorage', {
+            value: {
+                getItem: jest.fn(() => 'test-token'),
+            },
+            writable: true
+        });
+
         mockedAxios.get.mockRejectedValue({
             response: { status: 401 },
         });
 
         render(
-            <MemoryRouter initialEntries={['/home']}>
                 <Header />
-            </MemoryRouter>
         );
 
         await waitFor(() => {

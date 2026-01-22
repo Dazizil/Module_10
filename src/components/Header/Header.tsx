@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import './header.css'
-import {Link, useLocation} from "react-router-dom";
+import styles from './header.module.css'
+import Link from 'next/link';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import axios from "axios";
-import {useAuth} from "../../context/AuthContext";
+import {useAuth} from "@/context/AuthContext";
 import SidekickLogo from "../icons/SidekickLogo";
 import BurgerMenuIcon from "../icons/BurgerMenuIcon";
+import {useRouter} from "next/router";
 
 interface UserInfoApiResponse {
     firstName: string,
@@ -17,9 +18,9 @@ const Header = () => {
     const [isBurgerOpen, setIsBurgerOpen] = useState(false);
     const [userInfo, setUserInfo] = useState<UserInfoApiResponse>({firstName: '', secondName: '', profileImage: ''});
     const {logout, isAuthorised} = useAuth();
-    const location = useLocation();
+    const location = useRouter();
 
-    const compactPages = ['/signUp', '/signIn', '/error', '/profile',''];
+    const compactPages = ['/SignUpPage', '/SignUpPage', '/error', '/profile',''];
     const isCompactHeader = compactPages.includes(location.pathname);
 
     function handleClose() {
@@ -51,31 +52,31 @@ const Header = () => {
     }, []);
 
     return (
-        <header className={`header ${isCompactHeader ? 'header--compact' : ''}`}>
+        <header className={`${styles['header']} ${isCompactHeader ? styles['header--compact'] : ''}`}>
 
-            <div className={'header__logo-container'}>
+            <div className={styles['header__logo-container']}>
                 <SidekickLogo/>
             </div>
 
             {isAuthorised && !isCompactHeader ?
-                <nav className={'header__links-container'}>
-                    <Link to={'/profile'} className={'header__profile-container'}>
-                        <img src={userInfo.profileImage} alt={'Profile'} className={'profile-img'}/>
+                <nav className={styles['header__links-container']}>
+                    <Link href={'/ProfilePage/ProfilePage'} className={styles['header__profile-container']}>
+                        <img src={userInfo.profileImage} alt={'Profile'} className={styles['profile-img']}/>
                         <span>{userInfo.firstName} {userInfo.secondName}</span>
                     </Link>
-                    <div className={'burger-menu-container'} onClick={handleBurgerMenuClick}>
+                    <div className={styles['burger-menu-container']} onClick={handleBurgerMenuClick}>
                         <BurgerMenuIcon/>
                     </div>
                 </nav>
                 : !isCompactHeader ?
-                    <nav className={'header__links-container'}>
-                        <Link to={'/signUp'} className={'link'}>
+                    <nav className={styles['header__links-container']}>
+                        <Link href={'/SignUpPage/SignUpPage'} className={styles['link']}>
                             Sign Up
                         </Link>
-                        <Link to={'/signIn'} className={'link'}>
+                        <Link href={'/SignInPage/SignInPage'} className={styles['link']}>
                             Sign In
                         </Link>
-                        <div className={'burger-menu-container'} onClick={handleBurgerMenuClick}>
+                        <div className={styles['burger-menu-container']} onClick={handleBurgerMenuClick}>
                             <BurgerMenuIcon/>
                         </div>
                     </nav>

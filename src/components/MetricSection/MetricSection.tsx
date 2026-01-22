@@ -1,10 +1,10 @@
 import React from 'react';
 import MetricCard from "../MetricCard/MetricCard";
-import './metricSection.css'
+import styles from './metricSection.module.css'
 
 const MetricSection = () => {
     return (
-        <div className={'metric-cards-container'} data-testid={'metric-cards-container'}>
+        <div className={styles['metric-cards-container']} data-testid={'metric-cards-container'}>
             <MetricCard/>
             <MetricCard/>
             <MetricCard/>

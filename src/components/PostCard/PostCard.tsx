@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import './postCard.css'
+import styles from './postCard.module.css'
 import axios from "axios";
 import {CommentApiResponse, PostsApiResponse, User} from "../../types/apiResponse";
 import {useAuth} from "../../context/AuthContext";
@@ -11,6 +11,7 @@ import {formatTimeAgo} from "../../utils/helpers";
 import PencilIcon from "../icons/PencilIcon";
 import TrashIcon from "../icons/TrashIcon";
 import PopUpNotification from "../PopUpNotification/PopUpNotification";
+import Image from "next/image";
 
 const PostCard = ({post}: { post: PostsApiResponse }) => {
         const [likes, setLikes] = useState(post.likesCount);
@@ -180,29 +181,29 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
         }
 
         return (
-            <article className={'post-container'} data-testid={'post-card'}>
-                <div className={'post-info-container'}>
-                    <header className={'avatar-container'}>
-                        <img className={'avatar-img'} src={post.authorPhoto} alt={'author avatar'}/>
+            <article className={styles['post-container']} data-testid={'post-card'}>
+                <div className={styles['post-info-container']}>
+                    <header className={styles['avatar-container']}>
+                        <Image width={48} height={48} className={styles['avatar-img']} src={post.authorPhoto} alt={'author avatar'}/>
 
-                        <div className={'name-and-time-container'}>
+                        <div className={styles['name-and-time-container']}>
                             <span>{postAuthor?.firstName} </span>
-                            <span className={'time'}>{formatTimeAgo(post.creationDate)}</span>
+                            <span className={styles['time']}>{formatTimeAgo(post.creationDate)}</span>
                         </div>
                     </header>
 
 
                     {(post.image.length > 0) ? (
-                        <figure className={'post-img-container'}>
-                            <img className={'post-img'} src={post.image} alt={'post'}/>
+                        <figure className={styles['post-img-container']}>
+                            <Image width={652} height={458} className={styles['post-img']} src={post.image} alt={'post'}/>
                         </figure>
                     ) : ''}
 
 
-                    <div className={'post-description'}>{post.content}</div>
+                    <div className={styles['post-description']}>{post.content}</div>
 
-                    <footer className={'likes-and-comments-container'}>
-                        <div className={'likes-container'}>
+                    <footer className={styles['likes-and-comments-container']}>
+                        <div className={styles['likes-container']}>
                             <div onClick={likeHandle} data-testid={'like-button'}>
                                 <LikeIcon filter={isLiked ?
                                     'brightness(0) saturate(100%) invert(67%) sepia(98%) saturate(635%) hue-rotate(335deg)'
@@ -211,7 +212,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                             {likes} likes
                         </div>
 
-                        <div className={'likes-container'}>
+                        <div className={styles['likes-container']}>
                             <CommentsIcon/>
                             {isAuthorised ?
                                 <>
@@ -238,9 +239,9 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                             <>
                                 {isClicked ?
                                     (
-                                        <div className={'comments-section'}>
+                                        <div className={styles['comments-section']}>
                                             {comments.map(comment =>
-                                                <div className={'comment-container'} key={comment.id}>
+                                                <div className={styles['comment-container']} key={comment.id}>
                                                     <span data-testid={`comment-text-${comment.id}`}>
       #{comment.id}. {comment.text}
     </span>
@@ -252,19 +253,19 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                                         </div>
                                     )
                                     : ''}
-                                <div className={'textarea-container'}>
-                                    <label className={'label-container'} htmlFor={'comments-textarea'}>
+                                <div className={styles['textarea-container']}>
+                                    <label className={styles['label-container']} htmlFor={'comments-textarea'}>
                                         <PencilIcon/>
                                         <span>Add a comment</span>
                                     </label>
                                     <textarea
                                         id={'comments-textarea'}
                                         placeholder={'Write description here...'}
-                                        className={'comments-textarea'}
+                                        className={styles['comments-textarea']}
                                         value={comment}
                                         onChange={handleChange}
                                     />
-                                    <button className={'add-comment-btn'} onClick={() => addComment()}>Add a
+                                    <button className={styles['add-comment-btn']} onClick={() => addComment()}>Add a
                                         comment
                                     </button>
                                 </div>

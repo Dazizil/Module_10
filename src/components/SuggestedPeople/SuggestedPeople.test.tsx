@@ -1,5 +1,6 @@
 import axios from "axios";
 import {render, screen, waitFor} from "@testing-library/react";
+import {act} from "react";
 import SuggestedPeople from "./SuggestedPeople";
 
 jest.mock('axios');
@@ -48,12 +49,16 @@ describe('Suggested people test', () => {
 
     test('getSuggestedPeople test', async () => {
         (axios.get as jest.Mock).mockResolvedValue(response);
-        render(<SuggestedPeople/>);
+        
+        await act(async () => {
+            render(<SuggestedPeople/>);
+        });
+        
         const suggestedPeoples = await screen.findAllByTestId('user-info-container');
 
         expect(suggestedPeoples).toHaveLength(3);
-        expect(axios.get).toBeCalledTimes(1);
-        expect(axios.get).toBeCalledWith(
+        expect(axios.get).toHaveBeenCalledTimes(1);
+        expect(axios.get).toHaveBeenCalledWith(
             'http://localhost:3000/api/getSuggested',
             {
                 headers: {
@@ -66,7 +71,9 @@ describe('Suggested people test', () => {
     test('renders title and container', async () => {
         (axios.get as jest.Mock).mockResolvedValue({ data: [] });
 
-        render(<SuggestedPeople/>);
+        await act(async () => {
+            render(<SuggestedPeople/>);
+        });
 
         await waitFor(() => {
             expect(screen.getByTestId('users-container')).toBeInTheDocument();
@@ -74,10 +81,11 @@ describe('Suggested people test', () => {
         });
     });
 
-    test('renders loading state initially', () => {
-        (axios.get as jest.Mock).mockResolvedValue(response);
+    test('renders title immediately', () => {
+        (axios.get as jest.Mock).mockImplementation(() => new Promise(() => {})); // Never resolves
 
         render(<SuggestedPeople/>);
+        
         expect(screen.getByText('Suggested people')).toBeInTheDocument();
         expect(screen.queryAllByTestId('user-info-container')).toHaveLength(0);
     });

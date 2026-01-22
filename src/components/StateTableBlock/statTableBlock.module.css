@@ -1,0 +1,10 @@
+.stat-table__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px
+}
+
+.stat-tables__container {
+    display: flex;
+    gap: 50px;
+}

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import './modalWindow.css'
+import styles from './modalWindow.module.css'
 import axios from "axios";
 import {PostsApiResponse} from "../../types/apiResponse";
 import CloseImage from "../icons/CloseImage";
@@ -75,53 +75,53 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
     }
 
     return (
-        <div className={'modal-overlay'}>
-            <div className={'modal'}>
-                <header className={'modal__header'}>
-                    <h1 className={'modal__header-heading'}>Create a new post</h1>
-                    <div className={'modal__header-close-img'} onClick={onClose}>
+        <div className={styles['modal-overlay']}>
+            <div className={styles['modal']}>
+                <header className={styles['modal__header']}>
+                    <h1 className={styles['modal__header-heading']}>Create a new post</h1>
+                    <div className={styles['modal__header-close-img']} onClick={onClose}>
                         <CloseImage/>
                     </div>
                 </header>
 
-                <form className={'modal__form'}>
-                    <div className={'modal__form-textarea-container'}>
-                        <label className={'label-container'} htmlFor={'post-title-textarea'}>
+                <form className={styles['modal__form']}>
+                    <div className={styles['modal__form-textarea-container']}>
+                        <label className={styles['label-container']} htmlFor={'post-title-textarea'}>
                             <PostIcon/>
                             <span>Post Title</span>
                         </label>
                         <textarea
                             id={'post-title-textarea'}
                             placeholder={'Enter post title'}
-                            className={'post__form-title-textarea'}
+                            className={styles['post__form-title-textarea']}
                             value={title}
                             onChange={handleTitleChange}
                         />
                     </div>
 
-                    <div className={'modal__form-textarea-container'}>
-                        <label className={'label-container'} htmlFor={'description-textarea'}>
+                    <div className={styles['modal__form-textarea-container']}>
+                        <label className={styles['label-container']} htmlFor={'description-textarea'}>
                             <PencilIcon/>
                             <span>Description</span>
                         </label>
                         <textarea
                             id={'description-textarea'}
                             placeholder={'Write description here...'}
-                            className={'comments-textarea'}
+                            className={styles['comments-textarea']}
                             value={description}
                             onChange={handleDescriptionChange}
                         />
                     </div>
 
-                    <div className={'modal__file'}>
-                        <label htmlFor={'post-file'} className={'modal__label'}>
+                    <div className={styles['modal__file']}>
+                        <label htmlFor={'post-file'} className={styles['modal__label']}>
                             <FileIcon/>
-                            <div className={'modal__file__text-container'}>
+                            <div className={styles['modal__file__text-container']}>
                                 <span>Select a file or drag and drop here</span>
                                 {windowWidth > 720 ?
-                                    <span className={'modal__file-second-text'}>JPG, PNG or PDF, file size no more than 10MB</span>
+                                    <span className={styles['modal__file-second-text']}>JPG, PNG or PDF, file size no more than 10MB</span>
                                     :
-                                    <span className={'modal__file-second-text'}>JPG or PNG, no more then 10MB</span>
+                                    <span className={styles['modal__file-second-text']}>JPG or PNG, no more then 10MB</span>
                                 }
                             </div>
                         </label>
@@ -131,8 +131,8 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
                     </div>
                 </form>
 
-                <footer className={'modal__footer'}>
-                    <button className={'modal__button'} onClick={handleCreate}>Create</button>
+                <footer className={styles['modal__footer']}>
+                    <button className={styles['modal__button']} onClick={handleCreate}>Create</button>
                 </footer>
             </div>
         </div>

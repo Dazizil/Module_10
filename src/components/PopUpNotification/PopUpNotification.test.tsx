@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import PopUpNotification from './PopUpNotification';
-import {act} from 'react-dom/test-utils';
+import {act} from 'react';
 
 describe('PopUpNotification', () => {
     const mockOnClose = jest.fn();

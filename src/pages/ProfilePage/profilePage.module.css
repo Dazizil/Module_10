@@ -122,24 +122,13 @@
     line-height: 150%;
 }
 
-.profile__tables-container {
-    display: flex;
-    gap: 50px;
-}
-
-.profile__table-container {
-    display: flex;
-    flex-direction: column;
-    gap: 24px
-}
-
 .profile__table-view-container {
     width: 1198px;
     display: flex;
     align-items: center;
-
     gap: 12px;
 }
+
 
 @media (max-width: 1200px) {
     .profile__content {

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import './popUpNotification.css';
+import styles from './popUpNotification.module.css';
 import CloseImage from "../icons/CloseImage";
 
 interface PopUpNotificationProps {
@@ -19,8 +19,8 @@ const PopUpNotification = ({message, isVisible, onClose}: PopUpNotificationProps
     if (!isVisible) return null;
 
     return (
-        <div className={`popup-notification popup`}>
-            <div className="popup-message">{message}</div>
+        <div className={`${styles['popup-notification']} ${styles['popup']}`}>
+            <div className={styles['popup-message']}>{message}</div>
             <div onClick={onClose} data-testid={'close-image'}>
                 <CloseImage size={8}/>
             </div>

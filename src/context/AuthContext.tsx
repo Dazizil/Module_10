@@ -1,6 +1,6 @@
-import React, {createContext, ReactNode, useContext, useState} from 'react';
+import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-import {User} from "../types/apiResponse";
+import {User} from '@/types/apiResponse';
 
 interface AuthContextType {
     isAuthorised: boolean;
@@ -19,11 +19,25 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export function AuthProvider({children}: { children: ReactNode }) {
-    const [isAuthorised, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
-    const [user, setUser] = useState<User | null>(() => {
+    const [isAuthorised, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
         const savedUser = localStorage.getItem('user');
-        return savedUser ? JSON.parse(savedUser) : null;
-    });
+
+        if (token && savedUser) {
+            try {
+                setIsAuthenticated(true);
+                setUser(JSON.parse(savedUser));
+            } catch (e) {
+                console.error('Failed to parse user from localStorage', e);
+                // Опционально: очистить битые данные
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+            }
+        }
+    }, []);
 
     async function login() {
         try {
@@ -38,13 +52,12 @@ export function AuthProvider({children}: { children: ReactNode }) {
             localStorage.setItem('user', JSON.stringify(userData));
             setIsAuthenticated(true);
             setUser(userData);
-            console.log('Юзер: ', user)
         } catch (error) {
             console.error('Login failed:', error);
         }
     }
 
-    async function logout() {
+    function logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         setIsAuthenticated(false);

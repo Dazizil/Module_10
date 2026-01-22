@@ -1,8 +1,8 @@
 import React from 'react';
 import PostCard from '../PostCard/PostCard'
 import PostForm from "../PostForm/PostForm";
-import {useAuth} from "../../context/AuthContext";
-import {PostsApiResponse} from "../../types/apiResponse";
+import {useAuth} from "@/context/AuthContext";
+import {PostsApiResponse} from "@/types/apiResponse";
 
 interface FeedProps {
     posts: PostsApiResponse[],

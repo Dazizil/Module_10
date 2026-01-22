@@ -1,7 +1,7 @@
 import React from 'react';
-import './burgerMenu.css';
-import {Link} from "react-router-dom";
-import {useAuth} from "../../context/AuthContext";
+import styles from './burgerMenu.module.css';
+import Link from 'next/link';
+import {useAuth} from "@/context/AuthContext";
 
 interface BurgerMenuProps {
     isOpen: boolean;
@@ -17,19 +17,19 @@ const BurgerMenu = ({isOpen, onClose}: BurgerMenuProps) => {
     }
 
     return (
-        <div className="burger-menu-overlay" onClick={onClose}>
+        <div className={styles['burger-menu-overlay']} onClick={onClose}>
             {isAuthorised ?
-                <div className="burger-menu" onClick={handleBurgerMenuClick}>
-                    <nav className="burger-menu__nav">
-                        <Link to={'/profile'} className={'burger__link'} onClick={onClose}>Profile info</Link>
-                        <Link to={'/statistic'} className={'burger__link'} onClick={onClose}>Statistic</Link>
+                <div className={styles['burger-menu']} onClick={handleBurgerMenuClick}>
+                    <nav className={styles['burger-menu__nav']}>
+                        <Link href={'/profile'} className={styles['burger__link']} onClick={onClose}>Profile info</Link>
+                        <Link href={'/statistic'} className={styles['burger__link']} onClick={onClose}>Statistic</Link>
                     </nav>
                 </div>
                 :
-                <div className="burger-menu" onClick={handleBurgerMenuClick}>
-                    <nav className="burger-menu__nav">
-                        <Link to={'/signUp'} className={'burger__link'} onClick={onClose}>Sign up</Link>
-                        <Link to={'/signIn'} className={'burger__link'} onClick={onClose}>Sign in</Link>
+                <div className={styles['burger-menu']} onClick={handleBurgerMenuClick}>
+                    <nav className={styles['burger-menu__nav']}>
+                        <Link href={'/signUp'} className={styles['burger__link']} onClick={onClose}>Sign up</Link>
+                        <Link href={'/signIn'} className={styles['burger__link']} onClick={onClose}>Sign in</Link>
                     </nav>
                 </div>
             }
