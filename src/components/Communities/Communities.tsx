@@ -3,26 +3,19 @@ import './communities.css'
 import axios from "axios";
 import {CommunitiesApiResponse} from "../../types/apiResponse";
 import {useAuth} from "../../context/AuthContext";
-
-
-function memberNumberConverter(numberOfMembers: number): string {
-    if (numberOfMembers < 1000) return numberOfMembers.toString();
-    if (numberOfMembers < 1_000_000) return `${numberOfMembers / 1000}k`;
-
-    return `${numberOfMembers / 1_000_000}m`
-}
+import {memberNumberConverter} from "../../utils/helpers";
 
 const Communities = () => {
     const {logout} = useAuth();
     const [communities, setCommunities] = useState<CommunitiesApiResponse[]>([]);
 
     useEffect(() => {
-        const fetchGroups = async () => {
+        async function fetchGroups () {
             const token = localStorage.getItem('token');
             try {
                 const response = await axios.get('http://localhost:3000/api/groups', {
                     headers: {
-                        Authorization: token ? `Bearer ${token}` : undefined,
+                        Authorization: token ? `Bearer ${token}` : '',
                     }
                 })
 
@@ -40,11 +33,11 @@ const Communities = () => {
     }, [])
 
     return (
-        <section className={'communities-section'}>
+        <section className={'communities-section'} data-testid={'communities-section'}>
             <ul className={'communities-container'}>
                 <h2 className={'title'}>Communities you might like</h2>
                 {communities.map(community =>
-                    <li className={'community-info-container'}>
+                    <li className={'community-info-container'} data-testid={'community-item'} key={community.id}>
                         <img className={'avatar-img'} src={community.photo} alt={''}/>
 
                         <div className={'community-name-container'}>

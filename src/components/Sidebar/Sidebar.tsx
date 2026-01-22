@@ -5,7 +5,7 @@ import Communities from "../Communities/Communities";
 
 const Sidebar = () => {
     return (
-        <aside className={'sidebar-container'}>
+        <aside className={'sidebar-container'} data-testid={'sidebar-container'}>
             <SuggestedPeople/>
             <Communities/>
         </aside>

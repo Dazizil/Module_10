@@ -14,7 +14,7 @@ export function formatTimeAgo(timestamp: string): string {
     if (minutes < 60) return `${minutes} min ago`;
     if (hours < 24) return `${hours} hours ago`;
     if (days < 7) return `${days} days ago`;
-    return new Date(postTime).toLocaleDateString();
+    return new Date(postTime).toLocaleDateString('en-US');
 }
 
 export function memberNumberConverter(numberOfMembers: number): string {

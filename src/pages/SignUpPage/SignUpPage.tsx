@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './signUpPage.css';
 import {Link, useNavigate} from 'react-router-dom';
 import EyeIcon from '../../components/icons/EyeIcon';
 import {useAuth} from '../../context/AuthContext';
 import PostIcon from '../../components/icons/PostIcon';
 import {useForm} from 'react-hook-form';
+import PopUpNotification from "../../components/PopUpNotification/PopUpNotification";
 
 interface FormData {
     email: string;
@@ -14,16 +15,35 @@ interface FormData {
 const SignUpPage = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
+    const [notification, setNotification] = useState({
+        isVisible: false,
+        message: '',
+    });
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm<FormData>();
 
-    const onSubmit = () => {
-        login();
+    function showNotification (message: string) {
+        setNotification({isVisible: true, message});
+    }
+
+    function hideNotification () {
+        setNotification(prev => ({...prev, isVisible: false}));
+    }
+
+    function onSubmit () {
+        login().then(r => console.log('res: ', r));
         navigate('/');
-    };
+    }
+
+    function onError (errors: any) {
+        const firstError = Object.values(errors)[0] as any;
+        if (firstError?.message) {
+            showNotification(firstError.message);
+        }
+    }
 
     return (
         <div className="sign-up">
@@ -35,14 +55,14 @@ const SignUpPage = () => {
                 </p>
             </header>
 
-            <form className="inputs-container" onSubmit={handleSubmit(onSubmit)}>
+            <form className="inputs-container" onSubmit={handleSubmit(onSubmit, onError)}>
                 <div className="input-container">
                     <label className="label-container" htmlFor="email-input">
                         <PostIcon />
                         <span>Email</span>
                     </label>
                     <input
-                        type="email"
+                        type="text"
                         id="email-input"
                         placeholder="Enter email"
                         className="sign-up__input"
@@ -91,6 +111,11 @@ const SignUpPage = () => {
                     <span className="sign-in-link">Sign in</span>
                 </Link>
             </p>
+            <PopUpNotification
+                isVisible={notification.isVisible}
+                message={notification.message}
+                onClose={hideNotification}
+            />
         </div>
     );
 };

@@ -5,6 +5,7 @@
     align-items: center;
     gap: 50px;
     font-family: Inter, sans-serif;
+    margin-bottom: 82px;
 }
 
 .profile__edit {
@@ -124,7 +125,6 @@
 .profile__tables-container {
     display: flex;
     gap: 50px;
-    margin-bottom: 82px;
 }
 
 .profile__table-container {

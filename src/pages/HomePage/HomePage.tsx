@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './homePage.css'
-import PostsList from "../../components/Feed/Feed";
 import Feed from "../../components/Feed/Feed";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import axios from "axios";
@@ -61,7 +60,7 @@ const HomePage = () => {
                 </main>
                 :
                 <main className={'main-container-unauthorised '}>
-                    <PostsList posts={posts}/>
+                    <Feed posts={posts}/>
                 </main>
             }
 

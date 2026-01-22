@@ -23,13 +23,13 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
         const [comment, setComment] = useState('');
         const [comments, setComments] = useState<CommentApiResponse[]>([]);
         const [postAuthor, setPostAuthor] = useState<User>();
-        const {logout, isAuthorised} = useAuth();
+        const {logout, login, isAuthorised} = useAuth();
 
-        function showNotification (message: string) {
+        function showNotification(message: string) {
             setNotification({isVisible: true, message});
         }
 
-        function hideNotification () {
+        function hideNotification() {
             setNotification(prev => ({...prev, isVisible: false}));
         }
 
@@ -43,7 +43,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                         }
                         , {
                             headers: {
-                                Authorization: token ? `Bearer ${token}` : undefined,
+                                Authorization: token ? `Bearer ${token}` : '',
                             }
                         }
                     )
@@ -54,7 +54,8 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                     return;
                 } catch (error: any) {
                     if (error.response?.status === 401) {
-                        logout()
+                        logout();
+                        showNotification('Session expired. Please log in again.');
                     }
                 }
             }
@@ -66,7 +67,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                     }
                     , {
                         headers: {
-                            Authorization: token ? `Bearer ${token}` : undefined,
+                            Authorization: token ? `Bearer ${token}` : '',
                         }
                     }
                 )
@@ -78,6 +79,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
             } catch (error: any) {
                 if (error.response?.status === 401) {
                     logout();
+                    showNotification('Session expired. Please log in again.');
                 }
             }
         }
@@ -93,7 +95,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                     }
                     , {
                         headers: {
-                            Authorization: token ? `Bearer ${token}` : undefined,
+                            Authorization: token ? `Bearer ${token}` : '',
                         }
                     }
                 )
@@ -101,10 +103,11 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                 const newComment = response.data;
                 setComments((prev) => [...prev, newComment]);
                 showNotification('Comment added successfully');
-                setComment('')
+                setComment('');
             } catch (error: any) {
                 if (error.response?.status === 401) {
                     logout();
+                    showNotification('Session expired. Please log in again.');
                 }
             }
         }
@@ -114,40 +117,38 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
             try {
                 await axios.delete(`http://localhost:3000/api/comments/${commentId}`, {
                     headers: {
-                        Authorization: token ? `Bearer ${token}` : undefined,
+                        Authorization: token ? `Bearer ${token}` : '',
                     }
                 });
                 setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
                 showNotification('Comment deleted successfully');
             } catch (error) {
-                console.error('Ошибка удаления комментария:', error);
+                showNotification('Comment was not deleted successfully');
             }
         }
 
         useEffect(() => {
-            const token = localStorage.getItem('token');
-            const fetchComments = async () => {
+            async function fetchComments() {
+                const token = localStorage.getItem('token');
                 try {
                     const response = await axios.get(`http://localhost:3000/api/posts/${post.id}/comments`, {
                         headers: {
-                            Authorization: token ? `Bearer ${token}` : undefined,
+                            Authorization: token ? `Bearer ${token}` : '',
                         },
                     });
                     console.log('Ответ по комментам', response.data);
                     setComments(response.data);
                 } catch (error: any) {
-                    if (error.response?.status === 401) {
-                        logout()
-                    }
                     console.log(error);
                 }
-            };
+            }
 
             async function fetchPostAuthor() {
+                const token = localStorage.getItem('token');
                 try {
                     const response = await axios.get(`http://localhost:3000/api/users/${post.authorId}`, {
                         headers: {
-                            Authorization: token ? `Bearer ${token}` : undefined,
+                            Authorization: token ? `Bearer ${token}` : '',
                         }
                     })
 
@@ -155,7 +156,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                     console.log('Ответ по авторам поста', response.data)
                 } catch (error: any) {
                     if (error.response?.status === 401) {
-                        logout();
+                        showNotification('Session expired. Please log in again.');
                     }
                     console.log(error);
                 }
@@ -163,7 +164,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
 
             fetchPostAuthor();
             fetchComments();
-        }, [post.id]);
+        }, [post.id, post.authorId, isAuthorised]);
 
 
         function handleCommentsCloseClick() {
@@ -179,7 +180,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
         }
 
         return (
-            <article className={'post-container'}>
+            <article className={'post-container'} data-testid={'post-card'}>
                 <div className={'post-info-container'}>
                     <header className={'avatar-container'}>
                         <img className={'avatar-img'} src={post.authorPhoto} alt={'author avatar'}/>
@@ -202,7 +203,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
 
                     <footer className={'likes-and-comments-container'}>
                         <div className={'likes-container'}>
-                            <div onClick={likeHandle}>
+                            <div onClick={likeHandle} data-testid={'like-button'}>
                                 <LikeIcon filter={isLiked ?
                                     'brightness(0) saturate(100%) invert(67%) sepia(98%) saturate(635%) hue-rotate(335deg)'
                                     : 'none'}/>
@@ -214,13 +215,13 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                             <CommentsIcon/>
                             {isAuthorised ?
                                 <>
-                                    {comments.length} comments
+                                    <span data-testid="comment-count">{comments.length}</span> comments
                                     {isClicked ?
-                                        <div onClick={handleCommentsCloseClick}>
+                                        <div data-testid="close-comments" onClick={handleCommentsCloseClick}>
                                             <CommentsOpenedIcon/>
                                         </div>
                                         :
-                                        <div onClick={handleCommentsOpenClick}>
+                                        <div data-testid="open-comments" onClick={handleCommentsOpenClick}>
                                             <CommentsClosedIcon/>
                                         </div>
                                     }
@@ -239,9 +240,12 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                                     (
                                         <div className={'comments-section'}>
                                             {comments.map(comment =>
-                                                <div className={'comment-container'}>
-                                                    <span>#{comment.id}. {comment.text}</span>
-                                                    <div onClick={() => deleteComment(comment.id)}>
+                                                <div className={'comment-container'} key={comment.id}>
+                                                    <span data-testid={`comment-text-${comment.id}`}>
+      #{comment.id}. {comment.text}
+    </span>
+                                                    <div
+                                                        data-testid={`delete-comment-${comment.id}`} onClick={() => deleteComment(comment.id)}>
                                                         <TrashIcon/>
                                                     </div>
                                                 </div>)}

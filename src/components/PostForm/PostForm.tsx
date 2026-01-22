@@ -27,7 +27,7 @@ class PostForm extends Component<PostFormProps, PostFormState> {
             const token = localStorage.getItem('token');
             const response = await axios.get('http://localhost:3000/api/me', {
                 headers: {
-                    Authorization: token ? `Bearer ${token}` : undefined,
+                    Authorization: token ? `Bearer ${token}` : '',
                 },
             });
             console.log('Ответ по мне', response.data.profileImage);
@@ -51,7 +51,7 @@ class PostForm extends Component<PostFormProps, PostFormState> {
         const { onAddPost } = this.props;
 
         return (
-            <div className="post-form-container">
+            <div className="post-form-container" data-testid={'post-form-container'}>
                 <ModalWindow
                     isOpen={isModalOpen}
                     onClose={this.handleCloseModal}

@@ -37,7 +37,7 @@ const Switcher = styled((props: SwitchProps) => (
 
     '& .MuiSwitch-track': {
         borderRadius: 26 / 2,
-        backgroundColor: 'var(--secondly-background-color)', // ← всегда из CSS
+        backgroundColor: 'var(--secondly-background-color)',
         opacity: 1,
         transition: 'background-color 500ms',
     },

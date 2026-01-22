@@ -3,7 +3,7 @@ import './metricCard.css'
 
 const MetricCard = () => {
     return (
-        <div className={'metric-cord'}>
+        <div data-testid={'metric-card'} className={'metric-cord'}>
             <div className={'metric-card-content-container'}>
                 <h2 className={'profile__stat-block-title'}>Title</h2>
                 <div className={'metric-card-numbers'}>42,4124</div>

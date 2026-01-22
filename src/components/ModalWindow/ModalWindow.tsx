@@ -46,7 +46,7 @@ const ModalWindow = ({isOpen, onClose, onCreate}: ModalWindowProps) => {
                 }
                 , {
                     headers: {
-                        Authorization: token ? `Bearer ${token}` : undefined
+                        Authorization: token ? `Bearer ${token}` : ''
                     }
                 })
 

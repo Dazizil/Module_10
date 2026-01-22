@@ -11,7 +11,7 @@ class Footer extends Component {
 
     render() {
         return (
-            <div className={'footer-container'}>
+            <div className={'footer-container'} data-testid={'footer-container'}>
                 <FooterSidekickLogo/>
             </div>
         );

@@ -36,10 +36,9 @@ const Header = () => {
                 const token = localStorage.getItem('token');
                 const response = await axios.get('http://localhost:3000/api/me', {
                     headers: {
-                        Authorization: token ? `Bearer ${token}` : undefined,
+                        Authorization: token ? `Bearer ${token}` : '',
                     }
                 });
-                console.log('Ответ по Юзеру', response.data);
                 setUserInfo(response.data);
             } catch (error: any) {
                 if (error.response?.status === 401) {

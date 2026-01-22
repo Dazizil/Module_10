@@ -63,6 +63,7 @@ const rows = [
 export default function CustomDarkTable() {
     return (
         <TableContainer
+            data-testid={'table-container'}
             component={Paper}
             sx={{
                 backgroundColor: 'var(--secondly-background-color)',

@@ -21,7 +21,7 @@ const PopUpNotification = ({message, isVisible, onClose}: PopUpNotificationProps
     return (
         <div className={`popup-notification popup`}>
             <div className="popup-message">{message}</div>
-            <div onClick={onClose}>
+            <div onClick={onClose} data-testid={'close-image'}>
                 <CloseImage size={8}/>
             </div>
         </div>

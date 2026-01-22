@@ -4,7 +4,7 @@ import './statTableBlock.css'
 
 const StatTableBlock = () => {
     return (
-        <div className={'profile__tables-container'}>
+        <div className={'profile__tables-container'} data-testid={'stat-table-block'}>
             <div className={'profile__table-container '}>
                 <h1>Likes</h1>
                 <Table/>
