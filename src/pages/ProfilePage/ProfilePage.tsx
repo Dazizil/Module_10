@@ -50,7 +50,7 @@ const ProfilePage = () => {
                     <div className={'profile__main-container'}>
 
                         <form className={'profile__edit'} onSubmit={handleSubmit}>
-                            <h1>Edit profile</h1>
+                            <h1 className={'profile__edit-header'}>Edit profile</h1>
 
                             <div className={'profile__photo-container'}>
                                 <div className={'profile__profile-image-container'}>
@@ -67,8 +67,8 @@ const ProfilePage = () => {
                             </div>
 
 
-                            <div className="input-container">
-                                <label className="label-container" htmlFor="email-input">
+                            <div className={'input-container'}>
+                                <label className={'label-container'} htmlFor={'email-input'}>
                                     <UserIcon/>
                                     <span>Username</span>
                                 </label>
@@ -123,7 +123,7 @@ const ProfilePage = () => {
 
                         <div className={'profile__content'}>
                             <section className={'profile__preferences'}>
-                                <h2>Preferences</h2>
+                                <h2 className={'profile__preferences-header'}>Preferences</h2>
                                 <div className={'profile__theme-switch-container'}>
                             <span onClick={toggleTheme}>
                                 <Switcher/>
@@ -133,7 +133,7 @@ const ProfilePage = () => {
                             </section>
 
                             <section className={'profile__actions'}>
-                                <h2>Actions</h2>
+                                <h2 className={'profile__actions-header'}>Actions</h2>
                                 <button onClick={handleLogout} className={'logout-button'}>Logout</button>
                             </section>
 
@@ -141,7 +141,7 @@ const ProfilePage = () => {
                     </div>
                 </>
                 :
-                <>
+                <div className={'profile__stat-block-container'}>
                     <MetricSection/>
                     <div className={'profile__table-view-container'} data-testid={'view-switcher'}>
                         <span>Table view</span>
@@ -149,7 +149,7 @@ const ProfilePage = () => {
                         <span>Chart view</span>
                     </div>
                     <StatTableBlock/>
-                </>
+                </div>
             }
         </main>
     );

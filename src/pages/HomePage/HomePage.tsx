@@ -5,7 +5,6 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import axios from "axios";
 import {PostsApiResponse} from "../../types/apiResponse";
 import {useAuth} from "../../context/AuthContext";
-import PopUpNotification from "../../components/PopUpNotification/PopUpNotification";
 
 const HomePage = () => {
     const { isAuthorised } = useAuth();
@@ -52,11 +51,6 @@ const HomePage = () => {
                 <main className={'main-container-authorised'}>
                     <Feed posts={posts} onAddPost={addPost}/>
                     <Sidebar/>
-                    <PopUpNotification
-                        isVisible={notification.isVisible}
-                        message={notification.message}
-                        onClose={hideNotification}
-                    />
                 </main>
                 :
                 <main className={'main-container-unauthorised '}>

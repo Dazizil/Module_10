@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import {styled} from '@mui/material/styles'
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(({theme}) => ({
     backgroundColor: 'var(--secondly-background-color)',
     color: 'var(--font-color)',
 
@@ -47,7 +47,7 @@ const StyledTableRow = styled(TableRow)(() => ({
 }))
 
 function createData(name: string, value1: number, value2: number) {
-    return { name, value1, value2 }
+    return {name, value1, value2}
 }
 
 const rows = [
@@ -70,7 +70,11 @@ export default function CustomDarkTable() {
                 border: '1px solid var(--border-color)',
                 width: 575,
                 boxShadow: 'none',
-                padding: '24px'
+                padding: '24px',
+
+                '@media (max-width: 1300px)': {
+                    width: '300px'
+                },
             }}
         >
             <Box sx={{
@@ -94,7 +98,7 @@ export default function CustomDarkTable() {
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Col 1</StyledTableCell>
-                        <StyledTableCell align="right" >Col 2</StyledTableCell>
+                        <StyledTableCell align="right">Col 2</StyledTableCell>
                         <StyledTableCell align="right">Col 3</StyledTableCell>
                     </TableRow>
                 </TableHead>

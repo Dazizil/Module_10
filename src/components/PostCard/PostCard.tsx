@@ -10,7 +10,7 @@ import CommentsClosedIcon from "../icons/CommentsClosedIcon";
 import {formatTimeAgo} from "../../utils/helpers";
 import PencilIcon from "../icons/PencilIcon";
 import TrashIcon from "../icons/TrashIcon";
-import PopUpNotification from "../PopUpNotification/PopUpNotification";
+import {useNotification} from "../../context/NotificationContext";
 
 const PostCard = ({post}: { post: PostsApiResponse }) => {
         const [likes, setLikes] = useState(post.likesCount);
@@ -23,15 +23,9 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
         const [comment, setComment] = useState('');
         const [comments, setComments] = useState<CommentApiResponse[]>([]);
         const [postAuthor, setPostAuthor] = useState<User>();
-        const {logout, login, isAuthorised} = useAuth();
+        const {logout, isAuthorised} = useAuth();
+        const {showNotification} = useNotification();
 
-        function showNotification(message: string) {
-            setNotification({isVisible: true, message});
-        }
-
-        function hideNotification() {
-            setNotification(prev => ({...prev, isVisible: false}));
-        }
 
         async function likeHandle() {
             const token = localStorage.getItem('token');
@@ -183,7 +177,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
             <article className={'post-container'} data-testid={'post-card'}>
                 <div className={'post-info-container'}>
                     <header className={'avatar-container'}>
-                        <img className={'avatar-img'} src={post.authorPhoto} alt={'author avatar'}/>
+                        <img className={'avatar-img'} src={post.authorPhoto || 'assets/user-helena.png'} alt={'author avatar'}/>
 
                         <div className={'name-and-time-container'}>
                             <span>{postAuthor?.firstName} </span>
@@ -239,10 +233,10 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                                 {isClicked ?
                                     (
                                         <div className={'comments-section'}>
-                                            {comments.map(comment =>
+                                            {comments.map((comment, index) =>
                                                 <div className={'comment-container'} key={comment.id}>
                                                     <span data-testid={`comment-text-${comment.id}`}>
-      #{comment.id}. {comment.text}
+        #{index + 1}. {comment.text}
     </span>
                                                     <div
                                                         data-testid={`delete-comment-${comment.id}`} onClick={() => deleteComment(comment.id)}>
@@ -272,11 +266,7 @@ const PostCard = ({post}: { post: PostsApiResponse }) => {
                             : <></>
                     }
                 </div>
-                <PopUpNotification
-                    isVisible={notification.isVisible}
-                    message={notification.message}
-                    onClose={hideNotification}
-                />
+
             </article>
         );
     }

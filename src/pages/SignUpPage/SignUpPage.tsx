@@ -5,7 +5,6 @@ import EyeIcon from '../../components/icons/EyeIcon';
 import {useAuth} from '../../context/AuthContext';
 import PostIcon from '../../components/icons/PostIcon';
 import {useForm} from 'react-hook-form';
-import PopUpNotification from "../../components/PopUpNotification/PopUpNotification";
 
 interface FormData {
     email: string;
@@ -111,11 +110,6 @@ const SignUpPage = () => {
                     <span className="sign-in-link">Sign in</span>
                 </Link>
             </p>
-            <PopUpNotification
-                isVisible={notification.isVisible}
-                message={notification.message}
-                onClose={hideNotification}
-            />
         </div>
     );
 };

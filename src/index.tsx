@@ -7,8 +7,8 @@ import {BrowserRouter} from "react-router-dom";
 import {AuthProvider} from "./context/AuthContext";
 import {ThemeProvider} from "./context/ThemeContext";
 import {startMockingSocial} from '@sidekick-monorepo/internship-backend';
-
-// import {store} from "./store/store";
+import {NotificationProvider} from "./context/NotificationContext";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 
 async function enableMocking() {
@@ -22,15 +22,17 @@ enableMocking().then(() => {
     );
     root.render(
         <React.StrictMode>
-            <ThemeProvider>
-                {/*<Provider store={store}>*/}
-                    <BrowserRouter>
-                        <AuthProvider>
-                            <App/>
-                        </AuthProvider>
-                    </BrowserRouter>
-                {/*</Provider>*/}
-            </ThemeProvider>
+            <ErrorBoundary>
+                <NotificationProvider>
+                    <ThemeProvider>
+                        <BrowserRouter>
+                            <AuthProvider>
+                                <App/>
+                            </AuthProvider>
+                        </BrowserRouter>
+                    </ThemeProvider>
+                </NotificationProvider>
+            </ErrorBoundary>
         </React.StrictMode>
     );
 

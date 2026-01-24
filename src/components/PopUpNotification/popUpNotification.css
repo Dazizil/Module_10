@@ -35,3 +35,11 @@
         opacity: 1;
     }
 }
+
+@media (max-width: 720px) {
+    .popup-notification {
+        width: 230px;
+        height: 60px;
+        font-size: 14px;
+    }
+}

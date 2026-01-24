@@ -4,14 +4,14 @@ import './statTableBlock.css'
 
 const StatTableBlock = () => {
     return (
-        <div className={'profile__tables-container'} data-testid={'stat-table-block'}>
-            <div className={'profile__table-container '}>
-                <h1>Likes</h1>
+        <div className={'stat-table__tables-container'} data-testid={'stat-table-block'}>
+            <div className={'stat-table__table-container'}>
+                <h1 className={'stat-table__table-header'}>Likes</h1>
                 <Table/>
             </div>
 
-            <div className={'profile__table-container '}>
-                <h1>Comments</h1>
+            <div className={'stat-table__table-container'}>
+                <h1  className={'stat-table__table-header'}>Comments</h1>
                 <Table/>
             </div>
         </div>

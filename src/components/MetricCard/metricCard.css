@@ -1,4 +1,4 @@
-.metric-cord {
+.metric-card {
     background-color: var(--secondly-background-color);
     border: 1px solid var(--border-color);
     width: 378px;
@@ -25,4 +25,32 @@
 
 .metric-card-text {
     color: var(--secondly-font-color);
+}
+
+@media (max-width: 1300px) {
+    .metric-card {
+        width: 300px;
+        height: 114px;
+    }
+
+    .profile__stat-block-title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 150%;
+    }
+
+    .metric-card-numbers {
+        font-size: 24px;
+        line-height: 110%;
+    }
+
+    .metric-card-content-container {
+        gap: 8px;
+        margin: 12px;
+    }
+
+    .metric-card-text {
+        font-size: 16px;
+        line-height: 150%;
+    }
 }

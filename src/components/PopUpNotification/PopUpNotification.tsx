@@ -1,30 +1,30 @@
-import React, {useEffect} from 'react';
+// PopUpNotification.tsx
+import React from 'react';
+import {createPortal} from 'react-dom';
+import CloseImage from '../icons/CloseImage';
 import './popUpNotification.css';
-import CloseImage from "../icons/CloseImage";
 
 interface PopUpNotificationProps {
-    message: string,
-    isVisible: boolean,
-    onClose: () => void
+    isVisible: boolean;
+    message: string;
+    onClose: () => void;
 }
 
 const PopUpNotification = ({message, isVisible, onClose}: PopUpNotificationProps) => {
-    useEffect(() => {
-        if (isVisible) {
-            const timer = setTimeout(onClose, 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [isVisible, onClose]);
+    const notificationRoot = document.getElementById('notification');
 
-    if (!isVisible) return null;
+    if (!notificationRoot || !isVisible) {
+        return null;
+    }
 
-    return (
-        <div className={`popup-notification popup`}>
+    return createPortal(
+        <div className="popup-notification">
             <div className="popup-message">{message}</div>
-            <div onClick={onClose} data-testid={'close-image'}>
-                <CloseImage size={8}/>
+            <div onClick={onClose}>
+                <CloseImage size={10}/>
             </div>
-        </div>
+        </div>,
+        notificationRoot
     );
 };
 

@@ -1,11 +1,20 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 24px;
     height: 68px;
     width: 100%;
     background-color: var(--secondly-background-color);
+}
+
+.header__content-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1600px;
+    width: 100%;
+    height: 100%;
 }
 
 .header__logo-container {
@@ -68,7 +77,8 @@
     .header__profile-container {
         display: none;
     }
-    .link{
+
+    .link {
         display: none;
     }
 

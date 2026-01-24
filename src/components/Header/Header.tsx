@@ -19,7 +19,7 @@ const Header = () => {
     const {logout, isAuthorised} = useAuth();
     const location = useLocation();
 
-    const compactPages = ['/signUp', '/signIn', '/error', '/profile',''];
+    const compactPages = ['/signUp', '/signIn', '/error', '/profile', ''];
     const isCompactHeader = compactPages.includes(location.pathname);
 
     function handleClose() {
@@ -52,41 +52,42 @@ const Header = () => {
 
     return (
         <header className={`header ${isCompactHeader ? 'header--compact' : ''}`}>
+            <div className={'header__content-container'}>
+                <div className={'header__logo-container'}>
+                    <SidekickLogo/>
+                </div>
 
-            <div className={'header__logo-container'}>
-                <SidekickLogo/>
-            </div>
-
-            {isAuthorised && !isCompactHeader ?
-                <nav className={'header__links-container'}>
-                    <Link to={'/profile'} className={'header__profile-container'}>
-                        <img src={userInfo.profileImage} alt={'Profile'} className={'profile-img'}/>
-                        <span>{userInfo.firstName} {userInfo.secondName}</span>
-                    </Link>
-                    <div className={'burger-menu-container'} onClick={handleBurgerMenuClick}>
-                        <BurgerMenuIcon/>
-                    </div>
-                </nav>
-                : !isCompactHeader ?
+                {isAuthorised && !isCompactHeader ?
                     <nav className={'header__links-container'}>
-                        <Link to={'/signUp'} className={'link'}>
-                            Sign Up
-                        </Link>
-                        <Link to={'/signIn'} className={'link'}>
-                            Sign In
+                        <Link to={'/profile'} className={'header__profile-container'}>
+                            <img src={userInfo.profileImage} alt={'Profile'} className={'profile-img'}/>
+                            <span>{userInfo.firstName} {userInfo.secondName}</span>
                         </Link>
                         <div className={'burger-menu-container'} onClick={handleBurgerMenuClick}>
                             <BurgerMenuIcon/>
                         </div>
                     </nav>
-                    :
-                    <></>
-            }
+                    : !isCompactHeader ?
+                        <nav className={'header__links-container'}>
+                            <Link to={'/signUp'} className={'link'}>
+                                Sign Up
+                            </Link>
+                            <Link to={'/signIn'} className={'link'}>
+                                Sign In
+                            </Link>
+                            <div className={'burger-menu-container'} onClick={handleBurgerMenuClick}>
+                                <BurgerMenuIcon/>
+                            </div>
+                        </nav>
+                        :
+                        <></>
+                }
 
-            <BurgerMenu
-                isOpen={isBurgerOpen}
-                onClose={handleClose}
-            />
+                <BurgerMenu
+                    isOpen={isBurgerOpen}
+                    onClose={handleClose}
+                />
+            </div>
         </header>
     );
 };
