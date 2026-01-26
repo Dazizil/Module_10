@@ -46,7 +46,6 @@ const HomePage = () => {
 
     return (
         <>
-            {/* Head переносится в layout или page как metadata */}
             <div className={styles['home-page-container']}>
                 {isAuthorised ?
                     <main className={styles['main-container-authorised']}>
