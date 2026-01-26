@@ -1,0 +1,39 @@
+.suggested-people-container {
+    width: 341px;
+    background-color: var(--secondly-background-color);
+    border: 1px solid var(--border-color);
+}
+
+.user-info-container {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+.username-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.users-container {
+    display: flex;
+    flex-direction: column;
+    margin: 24px;
+    gap: 8px;
+}
+
+.username {
+    color: var(--secondly-font-color);
+}
+
+.title {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+}
