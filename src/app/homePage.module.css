@@ -1,0 +1,40 @@
+.home-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.main-container-authorised {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin-top: 24px;
+    margin-right: 24px;
+    margin-bottom: 24px;
+    gap: 85px;
+}
+
+.main-container-unauthorised {
+    width: 100%;
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+
+@media (max-width: 1150px) {
+    .home-page-container {
+        align-items: center;
+    }
+
+    .main-container-authorised {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 720px) {
+    .main-container-authorised {
+        margin-top: 10px;
+    }
+}
+
